@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import { SiReact, SiVercel, SiPhp, SiLaravel, SiJavascript, SiTailwindcss } from 'react-icons/si';
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
               backgroundImage: `radial-gradient(circle at center, black 0.8px, transparent 1px)`,
               backgroundSize: '13px 13px',
               backgroundPosition: '0 0',
-              boxShadow: '0 0 16px 16px white inset'
+              boxShadow: '0 0 24px 24px white inset'
             }}
           ></div>
           <h2 className="text-6xl font-dm-sans text-black font-light tracking-tighter">Matt Cabarrubias</h2>
@@ -21,12 +22,33 @@ export default function Home() {
           <h3 className="text-4xl font-baybayin text-black font-semibold tracking-tight pt-4">devliqht</h3>
         </div>
         <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[100%] group">
-          <div className="relative w-full h-full transition-all duration-500 ease-in-out group-hover:scale-105">
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute top-[48%] right-8 hover:scale-110">
+              <SiReact className="w-32 h-32 text-black opacity-100" />
+            </div>
+            <div className="absolute top-1/8 -left-0 -rotate-24">
+              <SiVercel className="w-38 h-38 text-black opacity-100" />
+            </div>
+            <div className="absolute bottom-1/5 right-8">
+              <SiPhp className="w-38 h-38 text-black opacity-100" />
+            </div>
+            <div className="absolute bottom-1/3 -right-12 animate-float">
+              <SiLaravel className="w-8 h-8 text-[#FF2D20] opacity-80" />
+            </div>
+            <div className="absolute top-1/2 -left-4 -rotate-16">
+              <SiJavascript className="w-28 h-28 text-black opacity-100" />
+            </div>
+            <div className="absolute top-1/2 -right-16 animate-float">
+              <SiTailwindcss className="w-8 h-8 text-[#06B6D4] opacity-80" />
+            </div>
+          </div>
+          
+          <div className="relative w-full h-full transition-all duration-500 ease-in-out group-hover:scale-100">
             <Image
               src="/portraits/halftone.svg"
               alt="Matt Cabarrubias Portrait Halftone"
               fill
-              className="object-contain transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+              className="object-contain transition-opacity duration-500 ease-in-out group-hover:opacity-0 drop-shadow-[0_0_12px_rgba(0,0,0,0.5)]"
               priority
             />
             <Image
