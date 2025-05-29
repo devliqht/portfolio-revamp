@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { dm_sans } from '@/lib/fonts';
+import { dm_sans, baybayin } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   title: "devliqht - Matt Cabarrubias",
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={dm_sans.variable}>
+    <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`}>
       <body>
         {children}
       </body>
