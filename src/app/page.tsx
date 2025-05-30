@@ -14,11 +14,11 @@ export default function Home() {
           <div 
             className="absolute inset-0 z-0 opacity-60 pointer-events-none"
           ></div>
-          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-950 via-neutral-500 to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
-          <h1 className="text-[14vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black]"><Typewriter text="devliqht" delay={150}/></h1>
+          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
+          <h1 className="text-[14vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] -translate-y-[4vw]"><Typewriter text="devliqht" delay={150}/></h1>
           <h3 className="text-4xl font-baybayin text-black font-semibold tracking-tight pt-4 animate-float-in-top text-delay">devliqht</h3>
         </div>
-        <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[100%] group">
+        <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[560px] sm:h-[720px] md:h-[860px] group">
           <div className="absolute inset-0 -z-10">
             <div className="absolute top-[48%] right-8 hover:scale-105 animate-float-in-right icons-delay hover:translate-x-2 transition duration-300 hover:cursor-pointer">
               <SiReact className="w-32 h-32 text-black opacity-100" />
