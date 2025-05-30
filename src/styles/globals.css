@@ -7,6 +7,7 @@
   --color-foreground: var(--foreground);
   --font-dm-sans: var(--font-dm-sans);
   --font-baybayin: var(--font-baybayin);
+  --smooth-anim: cubic-bezier(.32,.98,.47,1);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -44,10 +45,119 @@ body {
   }
 }
 
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float-in-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-in-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
 .animate-float-slow {
   animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-float-in {
+  animation: float-in 1.2s var(--smooth-anim) forwards;
+  opacity: 0;
+}
+
+.animate-float-in-left {
+  animation: float-in-left 1.2s var(--smooth-anim) forwards;
+  opacity: 0;
+}
+
+.animate-float-in-right {
+  animation: float-in-right 1.2s var(--smooth-anim) forwards;
+  opacity: 0;
+}
+
+.animate-float-in-top {
+  animation: float-in-top 1.2s var(--smooth-anim) forwards;
+  opacity: 0;
+}
+
+.animate-float-in-bottom {
+  animation: float-in-bottom 1.2s var(--smooth-anim) forwards;
+  opacity: 0;
+}
+
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-600 { animation-delay: 600ms; }
+
+@keyframes gradient-fill {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 180px;
+  }
+}
+
+.wavy-gradient-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.29) 0%, rgba(0, 0, 0, 0.1) 36%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+  animation: gradient-fill 2s var(--smooth-anim) forwards;
 }
