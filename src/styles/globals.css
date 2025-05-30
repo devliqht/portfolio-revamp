@@ -162,6 +162,7 @@ body {
 .animate-delay-400 { animation-delay: 400ms; }
 .animate-delay-500 { animation-delay: 500ms; }
 .animate-delay-600 { animation-delay: 600ms; }
+.icons-delay { animation-delay: 2s; }
 
 .wavy-gradient-bottom::after {
   content: '';
@@ -214,4 +215,38 @@ body {
   animation: dots-reveal 2s ease forwards;
   animation-delay: 1s;
   z-index: 1;
+}
+
+@keyframes menu-reveal {
+  0% {
+    transform: translateX(150vw) translateY(-150vh) rotate(45deg);
+  }
+  100% {
+    transform: translateX(-100vw) translateY(-100vh) rotate(45deg);
+  }
+}
+
+@keyframes menu-hide {
+  0% {
+    transform: translateX(-100vw) translateY(-100vh) rotate(45deg);
+  }
+  100% {
+    transform: translateX(150vw) translateY(-150vh) rotate(45deg);
+  }
+}
+
+.menu-overlay-bg {
+  position: fixed;
+  top: -50vh;
+  left: -50vw;
+  width: 300vw;
+  height: 300vh;
+  background: var(--background);
+  transform: translateX(150vw) translateY(-150vh) rotate(45deg);
+  animation: menu-reveal 0.8s ease forwards;
+  z-index: 1;
+}
+
+.menu-overlay-bg.closing {
+  animation: menu-hide 0.8s ease forwards;
 }
