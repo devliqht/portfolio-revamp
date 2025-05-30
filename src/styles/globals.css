@@ -163,15 +163,6 @@ body {
 .animate-delay-500 { animation-delay: 500ms; }
 .animate-delay-600 { animation-delay: 600ms; }
 
-@keyframes gradient-fill {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 180px;
-  }
-}
-
 .wavy-gradient-bottom::after {
   content: '';
   position: absolute;
@@ -182,5 +173,45 @@ body {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.29) 0%, rgba(0, 0, 0, 0.1) 36%, transparent 100%);
   pointer-events: none;
   z-index: 1;
-  animation: gradient-fill 2s var(--smooth-anim) forwards;
+}
+
+@keyframes dots-reveal {
+  0% {
+    transform: translateX(-100vw) translateY(-100vh) rotate(45deg);
+  }
+  100% {
+    transform: translateX(150vw) translateY(150vh) rotate(45deg);
+  }
+}
+
+@keyframes vignette-fade {
+  0% {
+    box-shadow: 0 0 0px 0px white inset;
+  }
+  100% {
+    box-shadow: 0 0 24px 24px white inset;
+  }
+}
+
+.animated-dots-bg {
+  background-image: radial-gradient(circle at center, black 0.8px, transparent 1px);
+  background-size: 13px 13px;
+  background-position: 0 0;
+  background-repeat: repeat;
+  position: relative;
+  animation: vignette-fade 2.5s var(--smooth-anim) forwards;
+}
+
+.animated-dots-bg::before {
+  content: '';
+  position: fixed;
+  top: -50vh;
+  left: -50vw;
+  width: 300vw;
+  height: 300vh;
+  background: var(--background);
+  transform: translateX(-100vw) translateY(-100vh) rotate(45deg);
+  animation: dots-reveal 2s ease forwards;
+  animation-delay: 1s;
+  z-index: 1;
 }

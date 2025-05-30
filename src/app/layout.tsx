@@ -14,14 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`}>
-      <body 
-        style={{
-          backgroundImage: `radial-gradient(circle at center, black 0.8px, transparent 1px)`,
-          backgroundSize: '13px 13px',
-          backgroundPosition: '0 0',
-          boxShadow: '0 0 24px 24px white inset'
-        }}
-          >
+      <body className="animated-dots-bg">
         {children}
       </body>
     </html>
