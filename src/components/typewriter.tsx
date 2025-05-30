@@ -30,7 +30,15 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, delay, infinite }) => {
     return () => clearTimeout(timeout);
   }, [currentIndex, delay, infinite, text]);
 
-  return <span>{currentText}</span>;
+  return (
+    <span className="relative">
+      <span className="invisible">{text}</span>
+      <span className="absolute inset-0 flex items-baseline">
+        <span>{currentText}</span>
+        <span className="animate-cursor-blink w-0.5 h-[1em] bg-current ml-1 flex-shrink-0"></span>
+      </span>
+    </span>
+  );
 };
 
 export default Typewriter;
