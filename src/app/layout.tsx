@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`}>
-      <body className="animated-dots-bg">
+      <body>
         <Header />
         {children}
       </body>

@@ -3,11 +3,11 @@ import React from 'react';
 import Image from 'next/image';
 import { SiReact, SiVercel, SiPhp, SiLaravel, SiJavascript, SiTailwindcss } from 'react-icons/si';
 import Typewriter from '@/components/typewriter';
-import ProjectsSection from '@/components/projects/page';
+import ProjectsSection from '@/app/projects/page';
 
 export default function Home() {
   return (
-    <main>
+    <main className="animated-dots-bg">
       <div className="relative min-h-screen flex text-white overflow-hidden wavy-gradient-bottom" id="landing">
         <div className="flex flex-col px-[5%] py-[3.7%] mt-8 z-10 relative h-fit transition" style={{transition: '1s all'}}>
           <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
