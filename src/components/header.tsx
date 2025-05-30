@@ -23,11 +23,11 @@ export default function Header() {
         }, 800); 
     };
     const navigationItems = [
-        { en: 'home', baybayin: 'home' },
-        { en: 'about', baybayin: 'about' },
-        { en: 'tech', baybayin: 'tech' },
-        { en: 'projects', baybayin: 'projects' },
-        { en: 'contact', baybayin: 'contact' }
+        { en: 'home', baybayin: 'home', link: '/' },
+        { en: 'about', baybayin: 'about', link: '/about' },
+        { en: 'tech', baybayin: 'tech', link: '/tech' },
+        { en: 'projects', baybayin: 'projects', link: '/projects' },
+        { en: 'contact', baybayin: 'contact', link: '/contact' }
     ];
     return (
         <>
@@ -45,7 +45,7 @@ export default function Header() {
                         <nav className="space-y-4">
                             {navigationItems.map((item, index) => (
                                 <div key={item.en} className={`animate-float-in-left `} style={{animationDelay: `${0.3 + index * 0.1}s`}}>
-                                    <a href={`#${item.en}`} className="block text-[5vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] hover:-skew-x-12 transition-transform duration-300" onClick={handleNavClick}>
+                                    <a href={`${item.link}`} className="block text-[5vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] hover:-skew-x-12 transition-transform duration-300" onClick={handleNavClick}>
                                         {item.en}
                                     </a>
                                     <p className="text-[2rem] font-baybayin text-black font-semibold tracking-tight opacity-70 -mt-4">
