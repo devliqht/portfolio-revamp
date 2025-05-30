@@ -14,7 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`}>
-      <body>
+      <body 
+        style={{
+          backgroundImage: `radial-gradient(circle at center, black 0.8px, transparent 1px)`,
+          backgroundSize: '13px 13px',
+          backgroundPosition: '0 0',
+          boxShadow: '0 0 24px 24px white inset'
+        }}
+          >
         {children}
       </body>
     </html>
