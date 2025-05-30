@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import Header from '@/components/header';
 import { dm_sans, baybayin } from '@/lib/fonts';
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`}>
       <body className="animated-dots-bg">
+        <Header />
         {children}
       </body>
     </html>
