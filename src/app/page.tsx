@@ -18,22 +18,22 @@ export default function Home() {
         </div>
         <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[100%] group">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute top-[48%] right-8 hover:scale-110 animate-float-in-right animate-delay-100">
+            <div className="absolute top-[48%] right-8 hover:scale-110 animate-float-in-right animate-delay-600">
               <SiReact className="w-32 h-32 text-black opacity-100" />
             </div>
-            <div className="absolute top-1/8 -left-0 -rotate-24 animate-float-in-left animate-delay-100">
+            <div className="absolute top-1/8 -left-0 -rotate-24 animate-float-in-left animate-delay-600">
               <SiVercel className="w-38 h-38 text-black opacity-100" />
             </div>
-            <div className="absolute bottom-1/5 right-8 animate-float-in-bottom animate-delay-100">
+            <div className="absolute bottom-1/5 right-8 animate-float-in-bottom animate-delay-600">
               <SiPhp className="w-38 h-38 text-black opacity-100" />
             </div>
-            <div className="absolute top-1/7 right-9 rotate-11 animate-float-in-top animate-delay-100">
+            <div className="absolute top-1/7 right-9 rotate-11 animate-float-in-top animate-delay-600">
               <SiLaravel className="w-42 h-42 text-black opacity-100" />
             </div>
-            <div className="absolute top-[60%] -left-4 -rotate-16 animate-float-in-bottom animate-delay-100">
+            <div className="absolute top-[60%] -left-4 -rotate-16 animate-float-in-bottom animate-delay-600">
               <SiJavascript className="w-28 h-28 text-black opacity-100" />
             </div>
-            <div className="absolute top-1/3 -left-0 animate-float-in-left animate-delay-100">
+            <div className="absolute top-1/3 -left-0 animate-float-in-left animate-delay-600">
               <SiTailwindcss className="w-32 h-32 text-black opacity-100" />
             </div>
           </div>
