@@ -14,9 +14,9 @@ export default function Home() {
           <div 
             className="absolute inset-0 z-0 opacity-60 pointer-events-none"
           ></div>
-          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-950 via-neutral-500 to-neutral-400 bg-clip-text text-transparent">Matt Cabarrubias</h2>
+          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-950 via-neutral-500 to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
           <h1 className="text-[14vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black]"><Typewriter text="devliqht" delay={150}/></h1>
-          <h3 className="text-4xl font-baybayin text-black font-semibold tracking-tight pt-4">devliqht</h3>
+          <h3 className="text-4xl font-baybayin text-black font-semibold tracking-tight pt-4 animate-float-in-top text-delay">devliqht</h3>
         </div>
         <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[100%] group">
           <div className="absolute inset-0 -z-10">
