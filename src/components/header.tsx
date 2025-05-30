@@ -10,7 +10,7 @@ export default function Header() {
             setTimeout(() => {
                 setIsOpen(false);
                 setIsClosing(false);
-            }, 800); 
+            }, 300); 
         } else {
             setIsOpen(true);
         }
@@ -44,11 +44,11 @@ export default function Header() {
                     <div className={`relative z-10 flex flex-col justify-center items-start px-[5%] h-full transition-opacity duration-200 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
                         <nav className="space-y-4">
                             {navigationItems.map((item, index) => (
-                                <div key={item.en} className={`animate-float-in-left`} style={{animationDelay: `${0.3 + index * 0.1}s`}}>
-                                    <a href={`#${item.en}`} className="block text-[6vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] transition-all duration-300" onClick={handleNavClick}>
+                                <div key={item.en} className={`animate-float-in-left `} style={{animationDelay: `${0.3 + index * 0.1}s`}}>
+                                    <a href={`#${item.en}`} className="block text-[5vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] hover:-skew-x-12 transition-transform duration-300" onClick={handleNavClick}>
                                         {item.en}
                                     </a>
-                                    <p className="text-4xl font-baybayin text-black font-semibold tracking-tight opacity-70 -mt-4">
+                                    <p className="text-[2rem] font-baybayin text-black font-semibold tracking-tight opacity-70 -mt-4">
                                         {item.baybayin}
                                     </p>
                                 </div>
