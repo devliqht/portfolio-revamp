@@ -8,18 +8,12 @@ export default function Home() {
   return (
     <main>
       <div className="relative min-h-screen flex text-white overflow-hidden wavy-gradient-bottom" id="landing">
-        <div className="flex flex-col gap-4 px-[5%] py-[3.7%] mt-8 z-10 relative h-fit transition" style={{transition: '1s all'}}>
+        <div className="flex flex-col px-[5%] py-[3.7%] mt-8 z-10 relative h-fit transition" style={{transition: '1s all'}}>
           <div 
             className="absolute inset-0 z-0 opacity-60 pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(circle at center, black 0.8px, transparent 1px)`,
-              backgroundSize: '13px 13px',
-              backgroundPosition: '0 0',
-              boxShadow: '0 0 24px 24px white inset'
-            }}
           ></div>
-          <h2 className="text-6xl font-dm-sans text-black font-light tracking-tighter">Matt Cabarrubias</h2>
-          <h1 className="text-8xl font-dm-sans text-black font-semibold tracking-tight"><Typewriter text="devliqht" delay={150}/></h1>
+          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-400 bg-clip-text text-transparent">Matt Cabarrubias</h2>
+          <h1 className="text-[14vw] font-dm-sans text-black font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black]"><Typewriter text="devliqht" delay={150}/></h1>
           <h3 className="text-4xl font-baybayin text-black font-semibold tracking-tight pt-4">devliqht</h3>
         </div>
         <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[100%] group">
@@ -44,7 +38,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="relative w-full h-full transition-all duration-500 ease-in-out group-hover:scale-105">
+          <div className="relative w-full h-full transition-all duration-500 ease-in-out ">
             <Image
               src="/portraits/halftone.svg"
               alt="Matt Cabarrubias Portrait Halftone"
