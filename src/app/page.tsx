@@ -7,12 +7,15 @@ import ProjectsSection from '@/app/projects/page';
 
 export default function Home() {
   return (
-    <main className="animated-dots-bg">
-      <div className="relative min-h-screen flex text-white overflow-hidden wavy-gradient-bottom dark:dark-wavy-gradient-bottom" id="landing">
+    <main>
+      <div className="relative min-h-screen flex text-white overflow-hidden animated-dots-bg" id="landing">
         <div className="flex flex-col px-[5%] py-[3.7%] mt-8 z-10 relative h-fit transition">
-          <h2 className="text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
+          <h2 className="text-[8vw] sm:text-5xl md:text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent animate-float-in-bottom text-delay">Matt Cabarrubias</h2>
           <h1 className="text-[14vw] font-dm-sans text-black dark:text-white font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] -translate-y-[4vw]"><Typewriter text="devliqht" delay={150}/></h1>
-          <h3 className="text-4xl font-baybayin text-black dark:text-white font-semibold tracking-tight pt-4 animate-float-in-top text-delay">devliqht</h3>
+        </div>
+        <div className="absolute bottom-0 px-[5%] pb-[4.7%] sm:md:left-0 right-0">
+          <div className={`text-2xl sm:text-3xl md:text-[4vw] font-dm-sans text-gray-900 dark:text-gray-100 font-extralight tracking-widest mb-4 transition-opacity animate-float-in-top text-delay sm:md:text-left text-right`}>full-stack</div>
+          <h3 className="text-2xl sm:md:text-4xl font-baybayin text-black sm:md:text-left text-right dark:text-white font-semibold tracking-tight animate-float-in-top text-delay">devliqht</h3>
         </div>
         <div className="absolute right-0 top-8/12 scale-110 -translate-y-1/2 w-[400px] h-[560px] sm:h-[720px] md:h-[860px] group">
           <div className="absolute inset-0 -z-10">
@@ -36,7 +39,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="relative w-full h-full transition-all duration-500 ease-in-out pointer-events-none">
+          <div className="relative w-full h-full transition-all duration-500 ease-in-out pointer-events-none [mask:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)] sm:md:[mask:linear-gradient(to_bottom,black_0%,black_50%,rgba(0,0,0,0.6)_70%,transparent_80%)]">
             <Image
               src="/portraits/halftone.svg"
               alt="Matt Cabarrubias Portrait Halftone"
