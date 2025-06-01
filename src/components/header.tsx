@@ -56,21 +56,31 @@ export default function Header() {
     ];
     return (
         <>
-            <button onClick={toggleMenu} className="fixed top-8 right-4 z-50 p-4 transition-all duration-300 hover:scale-110" aria-label="Toggle menu">
-                <div className="relative w-8 h-6">
-                    <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'rotate-45 top-3' : 'top-0'}`}></span>
-                    <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'opacity-0' : 'top-3'}`}></span>
-                    <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? '-rotate-45 top-3' : 'top-6'}`}></span>
-                </div>
-            </button>
+            <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8">
+                <a href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
+                    <img 
+                        src={theme === 'dark' ? "/logos/logo_white_transparent.svg" : "/logos/logo_transparent.svg"}
+                        alt="devliqht.dev logo" 
+                        className="w-12 h-12 sm:w-12 sm:h-12 md:lg:w-[5vw] md:lg:h-[5vw]"
+                    />
+                </a>
+                
+                <button onClick={toggleMenu} className="p-4 transition-all duration-300 hover:scale-110" aria-label="Toggle menu">
+                    <div className="relative w-8 h-6 md:lg:scale-130 left-[0.2rem] sm:md:lg:right-[0.2rem]">
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'rotate-45 top-3' : 'top-0'}`}></span>
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'opacity-0' : 'top-3'}`}></span>
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? '-rotate-45 top-3' : 'top-6'}`}></span>
+                    </div>
+                </button>
+            </header>
             {(isOpen || isClosing) && (
                 <div className="fixed inset-0 z-40">
                     <div className={`fixed inset-0 ${isBlurred ? 'backdrop-blur-[72px] bg-white/20 dark:bg-black/20' : 'bg-white dark:bg-black'} transition-opacity duration-600 ${isClosing ? 'opacity-0' : 'opacity-100'}`}></div>
-                    <div className={`relative z-10 flex flex-col justify-center items-start px-[2rem] sm:md:px-[5%] h-full transition-opacity duration-200 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
+                    <div className={`relative z-10 flex flex-col justify-center items-start px-[1.6rem] sm:md:px-[5%] h-full transition-opacity duration-200 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
                         <nav className="space-y-4 mb-[12vh] sm:md:mb-0">
-                            <div className={`text-[8vw] sm:md:hidden font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-widest mb-4 transition-opacity ${isClosing ? 'opacity-0 animate-float-out-left' : 'opacity-100 animate-float-in-left'}`} style={{animationDelay: `0s`, animationDuration: `0.6s`, animationTimingFunction: `var(--smooth-anim)`}}>
+                            {/* <div className={`text-[8vw] sm:md:hidden font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-widest mb-4 transition-opacity ${isClosing ? 'opacity-0 animate-float-out-left' : 'opacity-100 animate-float-in-left'}`} style={{animationDelay: `0s`, animationDuration: `0.6s`, animationTimingFunction: `var(--smooth-anim)`}}>
                                 devliqht.dev
-                            </div>
+                            </div> */}
                             {navigationItems.map((item, index) => (
                                 <div key={item.en} className={`transition-opacity ${isClosing ? 'opacity-0 animate-float-out-left' : 'opacity-100 animate-float-in-left'}`} style={{animationDelay: `${isClosing ? '0s' : `${index * 0.04}s`}`, animationDuration: `0.6s`, animationTimingFunction: `var(--smooth-anim)`}}>
                                     <a href={`${item.link}`} className="block text-[9vw] sm:text-[11vw] md:text-[5vw] font-dm-sans bg-gradient-to-r hover:bg-none from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_#111827] dark:hover:[-webkit-text-stroke:2px_#f3f4f6] hover:-translate-y-1 transition-transform duration-300" onClick={handleNavClick}>
