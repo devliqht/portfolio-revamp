@@ -96,7 +96,13 @@ export default function ProjectsSection() {
   }, [exact_project_index]);
 
   return (
-    <div className="min-h-screen relative" id="projects" style={{ height: `${projects.length * 100}vh` }}>
+    <div 
+      className="min-h-screen relative grid-bg" 
+      id="projects" 
+      style={{ 
+        height: `${projects.length * 100}vh`
+      }}
+    >
       <div className="sticky top-0 h-screen flex flex-col-reverse sm:md:flex-row"> 
         <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1">
           <div className="max-w-lg w-full sm:md:p-8">
@@ -156,6 +162,20 @@ export default function ProjectsSection() {
       </div>
 
       <style jsx>{`
+        .grid-bg {
+          background-image: 
+            linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+          background-size: 20px 20px;
+          background-attachment: fixed;
+        }
+        
+        :global(.dark) .grid-bg {
+          background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        }
+        
         @keyframes slideUp {
           0% {
             transform: translateY(15px);
