@@ -257,7 +257,6 @@ body {
   background: var(--background);
   transform: translateX(-100vw) translateY(-100vh) rotate(45deg);
   animation: dots-reveal 1.8s var(--smooth-anim) forwards;
-  animation-delay: 1.3s;
   z-index: 1;
 }
 
