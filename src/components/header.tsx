@@ -1,13 +1,15 @@
 'use client';
 import { useState } from 'react';
-import ThemeToggle from './theme-toggle';
 import { useTheme } from 'next-themes';
+import ThemeToggle from '@/components/theme-toggle';
+import { useSection } from '@/hooks/useSection';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isBlurred, setIsBlurred] = useState(true);
     const { theme, setTheme } = useTheme();
+    const { currentSection, isVisible } = useSection();
 
     const toggleMenu = () => {
         if (isOpen) {
@@ -57,13 +59,22 @@ export default function Header() {
     return (
         <>
             <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8">
-                <a href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
-                    <img 
-                        src={theme === 'dark' ? "/logos/logo_white_transparent.svg" : "/logos/logo_transparent.svg"}
-                        alt="devliqht.dev logo" 
-                        className="w-12 h-12 sm:w-12 sm:h-12 md:lg:w-[5vw] md:lg:h-[5vw]"
-                    />
-                </a>
+                <div className="flex items-center gap-4">
+                    <a href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
+                        <img 
+                            src={theme === 'dark' ? "/logos/logo_white_transparent.svg" : "/logos/logo_transparent.svg"}
+                            alt="devliqht.dev logo" 
+                            className="w-12 h-12 sm:w-12 sm:h-12 md:lg:w-[5vw] md:lg:h-[5vw]"
+                        />
+                    </a>
+                    {currentSection && (
+                        <span className={`text-lg sm:md:text-xl font-light text-neutral-600 dark:text-neutral-400 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out ${
+                            isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                        }`}>
+                            {currentSection}
+                        </span>          
+                    )}
+                </div>
                 
                 <button onClick={toggleMenu} className="p-4 transition-all duration-300 hover:scale-110" aria-label="Toggle menu">
                     <div className="relative w-8 h-6 md:lg:scale-130 left-[0.2rem] sm:md:lg:right-[0.2rem]">
