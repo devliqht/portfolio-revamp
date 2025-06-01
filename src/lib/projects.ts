@@ -21,7 +21,7 @@ export interface Project {
     },
     {
       id: 2,
-      title: "VLSM and Subnet Calculator",
+      title: "VLSM Calculator",
       imageUrl: "/projects/vlsm.png",
       tags: ["React", "TypeScript", "Bun", "Next.js", "TailwindCSS", "ShadcnUI", "v0"],
       link: "https://vlsm-calculator.dcism.org",
