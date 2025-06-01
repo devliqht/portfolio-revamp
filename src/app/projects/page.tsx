@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { projects } from '@/lib/projects';
 import Image from 'next/image';
+
+import { projects } from '@/lib/projects';
 
 export default function ProjectsSection() {
   const [scroll_progress, set_scroll_progress] = useState(0);
@@ -104,10 +105,10 @@ export default function ProjectsSection() {
       }}
     >
       <div className="sticky top-0 h-screen flex flex-col-reverse sm:md:flex-row"> 
-        <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1">
+        <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1 relative z-[100]">
           <div className="max-w-lg w-full sm:md:p-8">
             <div key={current_project} className="transition-all duration-300 ease-out" /*style={{ animation: is_moving_forward ? 'slideUp 0.3s ease-out' : 'slideDown 0.3s ease-out' }} */>
-              <h3 className="text-[6rem] sm:md:text-[12vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans">
+              <h3 className="text-[6rem] sm:md:text-[12vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans relative z-[9999]">
                 {projects[current_project]?.title}
               </h3>
               {/* <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-200 mb-6 leading-relaxed tracking-tight font-extralight font-dm-sans">
