@@ -14,7 +14,6 @@ export default function ProjectsSection() {
     const handle_scroll = () => {
       const now = performance.now();
       
-      // throttle to 60fps max
       if (now - last_scroll_time_ref.current < 16) return;
       last_scroll_time_ref.current = now;
       if (animation_frame_ref.current) {
@@ -29,12 +28,10 @@ export default function ProjectsSection() {
           const section_bottom = section_top + projects_section.offsetHeight;
           const current_scroll_y = window.scrollY;
           
-          // only calculate scroll progress if we're actually scrolled into the section
           if (current_scroll_y >= section_top && current_scroll_y <= section_bottom) {
             const scroll_in_section = Math.max(0, current_scroll_y - section_top);
             const total_height = projects.length * window.innerHeight;
             
-            // dont scroll immediately
             const settle_in_buffer = window.innerHeight * 0.3;
             const adjusted_scroll_in_section = Math.max(0, scroll_in_section - settle_in_buffer);
             const adjusted_total_height = total_height - settle_in_buffer;
@@ -64,7 +61,6 @@ export default function ProjectsSection() {
     };
   }, [current_project]);
   
-  // memoize heavy calculations
   const is_moving_forward = current_project > previous_project;
   const exact_project_index = useMemo(() => scroll_progress * projects.length, [scroll_progress]);
   
@@ -101,11 +97,11 @@ export default function ProjectsSection() {
 
   return (
     <div className="min-h-screen relative" id="projects" style={{ height: `${projects.length * 100}vh` }}>
-      <div className="sticky top-0 h-screen flex flex-col lg:flex-row"> 
-        <div className="w-full lg:w-2/5 flex items-center justify-center p-6 lg:p-1 bg-white">
-          <div className="max-w-lg w-full p-8">
-            <div key={current_project} className="transition-all duration-300 ease-out" style={{ animation: is_moving_forward ? 'slideUpFade 0.3s ease-out' : 'slideDownFade 0.3s ease-out' }}>
-              <h3 className="text-xl md:text-[4vw] font-bold text-gray-900 mb-4 tracking-tighter leading-[0.8] font-dm-sans">
+      <div className="sticky top-0 h-screen flex flex-col-reverse sm:md:flex-row"> 
+        <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1">
+          <div className="max-w-lg w-full sm:md:p-8">
+            <div key={current_project} className="transition-all duration-300 ease-out" /*style={{ animation: is_moving_forward ? 'slideUp 0.3s ease-out' : 'slideDown 0.3s ease-out' }} */>
+              <h3 className="text-[2.4rem] sm:md:text-[4vw] font-bold text-gray-900 mb-4 tracking-tighter leading-[0.8] font-dm-sans">
                 {projects[current_project]?.title}
               </h3>
               <p className="text-base lg:text-lg text-neutral-700 mb-6 leading-relaxed tracking-tight font-dm-sans">
@@ -118,17 +114,6 @@ export default function ProjectsSection() {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-sm text-gray-500">
-                  {current_project + 1} / {projects.length}
-                </span>
-                <div className="h-1 w-24 bg-gray-200 rounded overflow-hidden">
-                  <div 
-                    className="h-full bg-neutral-800 transition-transform duration-100 origin-left"
-                    style={{ transform: `scaleX(${scroll_progress})` }}
-                  />
-                </div>
-              </div>
               <a href={projects[current_project]?.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-neutral-700 transition-colors duration-300">
                 View Project
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,7 +123,7 @@ export default function ProjectsSection() {
             </div>
           </div>
         </div>
-        <div className="w-full lg:w-3/5 relative overflow-hidden bg-white min-h-[50vh] lg:min-h-full">
+        <div className="w-full lg:w-3/5 relative overflow-hidden min-h-[50vh] lg:min-h-full">
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <div className="mb-8 absolute top-[7vw]">
               {/* <h2 className="text-4xl md:text-[8vw] font-semibold text-black mb-2 tracking-tighter font-dm-sans">projects</h2> */}
@@ -147,8 +132,8 @@ export default function ProjectsSection() {
               {visible_projects.map((project) => (
                 <div key={project.id} className="absolute inset-0 will-change-transform" style={{ transform: `translate3d(${project.translate_x}px, 0, ${project.translate_z}px) rotateY(${project.rotate_y}deg) scale(${project.scale})`, opacity: project.opacity, zIndex: project.z_index }}>
                   <div className="relative w-full h-full">
-                    <div className="w-full h-full overflow-hidden shadow-xl rounded-lg" style={{ transform: 'translateZ(20px)', maxWidth: '600px', maxHeight: '400px', margin: '0 auto' }}>
-                      <Image src={project.imageUrl} alt={project.title} fill className="object-contain bg-white" sizes="(max-width: 768px) 90vw, 600px" priority={project.abs_offset <= 1} loading={project.abs_offset <= 1 ? 'eager' : 'lazy'} />
+                    <div className="w-full h-full overflow-hidden rounded-lg" style={{ transform: 'translateZ(20px)', maxWidth: '1000px', maxHeight: '400px', margin: '0 auto' }}>
+                      <Image src={project.imageUrl} alt={project.title} fill className="object-contain" sizes="(max-width: 768px) 90vw, 600px" priority={project.abs_offset <= 1} loading={project.abs_offset <= 1 ? 'eager' : 'lazy'} />
                       {project.abs_offset < 0.5 && (
                         <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent" />
                       )}
@@ -171,24 +156,20 @@ export default function ProjectsSection() {
       </div>
 
       <style jsx>{`
-        @keyframes slideUpFade {
+        @keyframes slideUp {
           0% {
-            opacity: 0;
             transform: translateY(15px);
           }
           100% {
-            opacity: 1;
             transform: translateY(0);
           }
         }
         
-        @keyframes slideDownFade {
+        @keyframes slideDown {
           0% {
-            opacity: 0;
             transform: translateY(-15px);
           }
           100% {
-            opacity: 1;
             transform: translateY(0);
           }
         }
