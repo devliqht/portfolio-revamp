@@ -101,10 +101,10 @@ export default function ProjectsSection() {
         <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1">
           <div className="max-w-lg w-full sm:md:p-8">
             <div key={current_project} className="transition-all duration-300 ease-out" /*style={{ animation: is_moving_forward ? 'slideUp 0.3s ease-out' : 'slideDown 0.3s ease-out' }} */>
-              <h3 className="text-[2.4rem] sm:md:text-[4vw] font-bold text-gray-900 mb-4 tracking-tighter leading-[0.8] font-dm-sans">
+              <h3 className="text-[2.4rem] sm:md:text-[4vw] font-semibold text-neutral-900 dark:text-neutral-100 mb-4 tracking-tighter leading-[0.8] font-dm-sans">
                 {projects[current_project]?.title}
               </h3>
-              <p className="text-base lg:text-lg text-neutral-700 mb-6 leading-relaxed tracking-tight font-dm-sans">
+              <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-200 mb-6 leading-relaxed tracking-tight font-extralight font-dm-sans">
                 {projects[current_project]?.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
@@ -114,7 +114,7 @@ export default function ProjectsSection() {
                   </span>
                 ))}
               </div>
-              <a href={projects[current_project]?.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg hover:bg-neutral-700 transition-colors duration-300">
+              <a href={projects[current_project]?.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 text-black border-[1px] border-black dark:border-white dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg transition-colors duration-100">
                 View Project
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -147,7 +147,7 @@ export default function ProjectsSection() {
                 const distance_from_current = Math.abs(index - exact_project_index);
                 const isActive = distance_from_current < 0.7;
                 return (
-                  <div key={index} className="h-2 rounded-full transition-all duration-200" style={{width: isActive ? '24px' : '8px', backgroundColor: isActive ? '#000000' : '#9ca3af'}}/>
+                  <div key={index} className={`h-2 rounded-full transition-all duration-200 ${isActive ? 'bg-black dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-500'}`} style={{width: isActive ? '24px' : '8px'}}/>
                 );
               })}
             </div>
