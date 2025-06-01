@@ -46,7 +46,7 @@ export interface Project {
       tags: ["React", "TypeScript", "Bun", "Vite", "TailwindCSS", "ShadcnUI", "React Router", "Vercel"],
       link: "https://cis1102n.vercel.app",
       description:
-        "The primary goal of The Turing Site is to serve as an informative and visually appealing platform to showcase portfolios. The site focuses on organizing and presenting information effectively.  The site caters to students and readers who are eager to explore detailed portfolios for learning, inspiration, or research. ",
+        "The site focuses on organizing and presenting information effectively.  The site caters to students and readers who are eager to explore detailed portfolios for learning, inspiration, or research. ",
       accordionContent: "The concept of the website embodies a modern, minimalistic and stylish aesthetic. The minimalist elements provide a sleek, transparent feel, while the overall design exudes smoothness and flexibility to ensure a seamless user experience."
     },
     {
