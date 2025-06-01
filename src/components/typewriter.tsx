@@ -5,14 +5,19 @@ interface TypewriterProps {
   text: string;
   delay: number;
   infinite?: boolean;
+  onComplete?: () => void;
 }
 
-const Typewriter: React.FC<TypewriterProps> = ({ text, delay, infinite }) => {
+const Typewriter: React.FC<TypewriterProps> = ({ text, delay, infinite, onComplete }) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (currentIndex >= text.length) {
+      if (onComplete && currentIndex === text.length) {
+        onComplete();
+      }
+      
       if (infinite) {
         setTimeout(() => {
           setCurrentIndex(0);
@@ -28,7 +33,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, delay, infinite }) => {
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [currentIndex, delay, infinite, text]);
+  }, [currentIndex, delay, infinite, text, onComplete]);
 
   return (
     <span className="relative">
