@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { SiReact, SiVercel, SiPhp, SiLaravel, SiJavascript, SiTailwindcss } from 'react-icons/si';
+
 import Typewriter from '@/components/typewriter';
 import ProjectsSection from '@/app/projects/page';
 
