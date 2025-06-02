@@ -7,7 +7,6 @@ import { useSection } from '@/hooks/useSection';
 export default function ProjectsSection() {
   const [scroll_progress, set_scroll_progress] = useState(0);
   const [current_project, set_current_project] = useState(0);
-  const [previous_project, set_previous_project] = useState(0);
   const animation_frame_ref = useRef<number | null>(null);
   const last_scroll_time_ref = useRef<number>(0);
   
@@ -16,7 +15,6 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     set_current_project(0);
-    set_previous_project(0);
     set_scroll_progress(0);
   }, [currentProjectCategory.key]);
 
@@ -54,7 +52,6 @@ export default function ProjectsSection() {
             const new_project = Math.min(Math.max(0, new_project_index), current_projects.length - 1);
             
             if (new_project !== current_project) {
-              set_previous_project(current_project);
               set_current_project(new_project);
             }
           }
