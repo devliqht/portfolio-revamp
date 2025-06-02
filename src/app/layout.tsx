@@ -11,6 +11,27 @@ export const metadata: Metadata = {
   description: "Dive into devliqht's portfolio.",
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: "devliqht - Matt Cabarrubias",
+    description: "Dive into devliqht's portfolio.",
+    type: "website",
+    url: "https://devliqht.dev",
+    siteName: "devliqht",
+    images: [
+      {
+        url: "/projects/portfolio.png",
+        width: 1200,
+        height: 630,
+        alt: "devliqht - Matt Cabarrubias Portfolio"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "devliqht - Matt Cabarrubias",
+    description: "Dive into devliqht's portfolio.",
+    images: ["/projects/portfolio.png"]
   }
 };
 
