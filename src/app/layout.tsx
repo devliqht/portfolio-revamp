@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`} suppressHydrationWarning={true}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SectionProvider>
