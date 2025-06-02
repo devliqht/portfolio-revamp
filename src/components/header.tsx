@@ -5,6 +5,8 @@ import ThemeToggle from '@/components/theme-toggle';
 import { useSection } from '@/hooks/useSection';
 import { projectCategories, type ProjectCategory } from '@/lib/projects';
 import Head from 'next/head';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +15,7 @@ export default function Header() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { theme, setTheme } = useTheme();
+    const { theme } = useTheme();
     const { currentSection, isVisible, currentProjectCategory, setProjectCategory, isProjectsSection } = useSection();
 
     useEffect(() => {
@@ -150,18 +152,22 @@ export default function Header() {
             )}
             <header className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8`}>
                 <div className="flex items-center gap-4">
-                    <a href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
-                        <img 
+                    <Link href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
+                        <Image
                             src="/logos/logo_transparent.svg"
                             alt="devliqht.dev logo" 
+                            width={40}
+                            height={40}
                             className="w-10 h-10 sm:w-10 sm:h-10 md:lg:w-[4vw] md:lg:h-[4vw] dark:hidden"
                         />
-                        <img 
+                        <Image
                             src="/logos/logo_white_transparent.svg"
                             alt="devliqht.dev logo" 
+                            width={40}
+                            height={40}
                             className="w-10 h-10 sm:w-10 sm:h-10 md:lg:w-[4vw] md:lg:h-[4vw] hidden dark:block"
                         />
-                    </a>
+                    </Link>
                     {currentSection && (
                         <>
                             {isProjectsSection ? (
