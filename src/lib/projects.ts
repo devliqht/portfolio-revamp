@@ -6,7 +6,13 @@ export interface Project {
     link: string;
   }
 
-  const projects: Project[] = [
+export interface ProjectCategory {
+  key: string;
+  displayName: string;
+  projects: Project[];
+}
+
+const projects: Project[] = [
     {
       id: 1,
       title: "Quickmed",
@@ -137,8 +143,44 @@ export interface Project {
       link: "https://github.com/devliqht/genshin-artifact-simulator"
     }
   ];
+
+  const Tools: Project[] = [
+    {
+      id: 19,
+      title: "ISMIS Theoretical Grade Calculator",
+      imageUrl: "/projects/genshinui.png",
+      tags: ["HTML", "CSS", "SASS"],
+      link: "https://github.com/devliqht/ismis-theoretical-grade-calculator"
+    }
+  ]
+
+export const projectCategories: ProjectCategory[] = [
+  {
+    key: 'projects',
+    displayName: 'Projects',
+    projects: projects
+  },
+  {
+    key: 'ui-designs',
+    displayName: 'UI Designs',
+    projects: UIDesigns
+  },
+  {
+    key: 'tools',
+    displayName: 'Tools',
+    projects: Tools
+  }
+];
+
+export const getProjectCategory = (key: string): ProjectCategory | undefined => {
+  return projectCategories.find(category => category.key === key);
+};
+
+export const getDefaultCategory = (): ProjectCategory => {
+  return projectCategories[0];
+};
   
-  export {
-    projects,
-    UIDesigns
-  };
+export {
+  projects,
+  UIDesigns
+};
