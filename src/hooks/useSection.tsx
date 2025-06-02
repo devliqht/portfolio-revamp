@@ -1,10 +1,15 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { projectCategories, getDefaultCategory, type ProjectCategory } from '@/lib/projects';
 
 interface SectionContextType {
   currentSection: string;
   isVisible: boolean;
   setSectionText: (section: string) => void;
+  // Project category management
+  currentProjectCategory: ProjectCategory;
+  setProjectCategory: (category: ProjectCategory) => void;
+  isProjectsSection: boolean;
 }
 
 const SectionContext = createContext<SectionContextType | undefined>(undefined);
@@ -12,19 +17,27 @@ const SectionContext = createContext<SectionContextType | undefined>(undefined);
 export function SectionProvider({ children }: { children: React.ReactNode }) {
   const [currentSection, setCurrentSection] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [currentProjectCategory, setCurrentProjectCategory] = useState<ProjectCategory>(getDefaultCategory());
+  const [isProjectsSection, setIsProjectsSection] = useState(false);
 
   const setSectionText = (section: string) => {
     setCurrentSection(section);
+  };
+
+  const setProjectCategory = (category: ProjectCategory) => {
+    setCurrentProjectCategory(category);
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
         { id: 'landing', text: '' },
-        { id: 'projects', text: 'My Projects' },
+        { id: 'projects', text: currentProjectCategory.displayName },
+        { id: 'tech', text: 'Technologies'}
       ];
 
       let currentSectionText = '';
+      let isInProjectsSection = false;
       
       for (const section of sections) {
         const element = document.getElementById(section.id);
@@ -35,10 +48,19 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
           
           if (isInView) {
             currentSectionText = section.text;
+            if (section.id === 'projects') {
+              isInProjectsSection = true;
+            }
             break;
           }
         }
       }
+
+      // Update projects section state
+      if (isInProjectsSection !== isProjectsSection) {
+        setIsProjectsSection(isInProjectsSection);
+      }
+
       if (currentSectionText !== currentSection) {
         if (currentSectionText === '') {
           setIsVisible(false);
@@ -62,10 +84,17 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
     handleScroll(); 
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentSection]);
+  }, [currentSection, currentProjectCategory.displayName, isProjectsSection]);
 
   return (
-    <SectionContext.Provider value={{ currentSection, isVisible, setSectionText }}>
+    <SectionContext.Provider value={{ 
+      currentSection, 
+      isVisible, 
+      setSectionText,
+      currentProjectCategory,
+      setProjectCategory,
+      isProjectsSection
+    }}>
       {children}
     </SectionContext.Provider>
   );
