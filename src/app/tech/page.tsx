@@ -30,8 +30,8 @@ const TechSection: React.FC = () => {
   // --- User Defined Animation Parameters ---
   const groupBaseZ = -200;      
   const groupEndZ = 2000;       
-  const iconFlyDuration = 1.4;   
-  const sectionHeightVh = 600; 
+  const iconFlyDuration = 1.4;   // Icon's individual flight duration factor
+  const sectionHeightVh = 600; // For className `h-[600vh]`
 
   // --- Derived/Internal Animation Parameters ---
   const zFlyDistance = 3000;     
@@ -165,7 +165,13 @@ const TechSection: React.FC = () => {
             })}
           </div>
         </div>
-        <div className="relative w-full h-full" style={{ transformStyle: 'preserve-3d', transform: `translateZ(${groupTranslateZ}px)` }}>
+        <div 
+          className="relative w-full h-full"
+          style={{
+            transformStyle: 'preserve-3d',
+            transform: `translateZ(${groupTranslateZ}px)`, 
+          }}
+        >
           {techIcons.map((tech) => {
             const iconOrderProgress = (tech.order - 1) / Math.max(1, totalIcons - 1);
             const flyStart = iconOrderProgress * iconFlyStartFactor;
@@ -192,7 +198,26 @@ const TechSection: React.FC = () => {
             const isActive = visibleIcons.includes(tech.id);
 
             return (
-              <div key={tech.id} className="absolute" style={{ left: '50%', top: '50%', transform: `translate(-50%, -50%) translate3d(${tech.x * xyClampedFactor}px, ${tech.y * xyClampedFactor}px, ${currentIconLocalZ}px) scale(${additionalScale})`, opacity: opacity, zIndex: Math.floor(5000 - finalWorldZ), willChange: 'transform, opacity' }}>
+              <div
+                key={tech.id}
+                className="absolute" 
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  transform: `
+                    translate(-50%, -50%)
+                    translate3d(
+                      ${tech.x * xyClampedFactor}px, 
+                      ${tech.y * xyClampedFactor}px, 
+                      ${currentIconLocalZ}px 
+                    ) 
+                    scale(${additionalScale}) 
+                  `,
+                  opacity: opacity, 
+                  zIndex: Math.floor(5000 - finalWorldZ), 
+                  willChange: 'transform, opacity',
+                }}
+              >
                 <div className={`relative group`}>
                   <tech.Icon className={`w-16 h-16 md:w-20 md:h-20`} style={{ color: tech.color }} />
                     <div className="absolute inset-0 rounded-full" style={{ transform: 'scale(1.8)', zIndex: -1 }} />
@@ -204,7 +229,15 @@ const TechSection: React.FC = () => {
             );
           })}
         </div>
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center pointer-events-none" style={{ opacity: Math.max(0, 0.8 - scrollProgress * 3.5), transition: 'opacity 0.3s', willChange: 'opacity' }}>
+
+        <div 
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-center pointer-events-none"
+          style={{
+            opacity: Math.max(0, 0.8 - scrollProgress * 3.5),
+            transition: 'opacity 0.3s',
+            willChange: 'opacity',
+          }}
+        >
           <div className="animate-bounce">
             <div className="w-1 h-8 bg-white mx-auto mb-2 rounded-full" />
             <p className="text-sm font-mono">SCROLL TO EXPLORE</p>
