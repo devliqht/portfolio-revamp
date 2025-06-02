@@ -15,7 +15,7 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main suppressHydrationWarning={true}>
       <div className={`relative min-h-screen flex text-white overflow-hidden ${isTypewriterComplete ? 'animated-dots-bg' : ''}`} id="landing">
         <div className="flex flex-col px-[5.8%] sm:md:px-[2.7%] top-12 sm:md:top-8 sm:md:pt-[4%] mt-8 z-10 relative h-fit transition">
           <h2 className={`text-[8vw] sm:text-5xl md:text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent ${isTypewriterComplete ? 'animate-float-in-bottom opacity-100 animate-delay-300' : ''} opacity-0`}>Matt Cabarrubias</h2>
