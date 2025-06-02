@@ -234,7 +234,7 @@ body {
     box-shadow: 0 0 0px 0px var(--background) inset;
   }
   100% {
-    box-shadow: 0 0 1.8vw 1.8vw var(--background) inset;
+    box-shadow: 0 0 1vw 1vw var(--background) inset;
   }
 }
 
