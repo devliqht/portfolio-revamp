@@ -71,9 +71,7 @@ export default function ProjectsSection() {
     };
   }, [current_project, current_projects.length]);
   
-  const is_moving_forward = current_project > previous_project;
   const exact_project_index = useMemo(() => scroll_progress * current_projects.length, [scroll_progress, current_projects.length]);
-  
   const visible_projects = useMemo(() => {
     return current_projects.map((project, index) => {
       const base_offset = index - exact_project_index;
