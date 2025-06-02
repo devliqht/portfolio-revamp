@@ -1,15 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import ThemeToggle from '@/components/theme-toggle';
 import { useSection } from '@/hooks/useSection';
+import { projectCategories, type ProjectCategory } from '@/lib/projects';
+import Head from 'next/head';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isBlurred, setIsBlurred] = useState(true);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
-    const { currentSection, isVisible } = useSection();
+    const { currentSection, isVisible, currentProjectCategory, setProjectCategory, isProjectsSection } = useSection();
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const toggleMenu = () => {
         if (isOpen) {
@@ -30,23 +39,96 @@ export default function Header() {
         }, 800); 
     };
 
+    const handleCategorySelect = (category: ProjectCategory) => {
+        setProjectCategory(category);
+        setIsDropdownOpen(false);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isDropdownOpen]);
+
     const BlurToggle = () => (
-        <button onClick={() => setIsBlurred(!isBlurred)} className="w-[8vw] h-[8vw] rounded-full border-[1.4px] border-black dark:border-white hover:cursor-pointer transition-all flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-neutral-800 dark:focus:ring-neutral-100 focus:ring-offset-2" aria-label={`Switch to ${isBlurred ? 'solid' : 'blurred'} background`}>
+        <button onClick={() => setIsBlurred(!isBlurred)} className="w-[10vw] h-[10vw] sm:md:w-[7vw] sm:md:h-[7vw] rounded-full border-[1.4px] border-black dark:border-white hover:cursor-pointer transition-all flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-neutral-800 dark:focus:ring-neutral-100 focus:ring-offset-2" aria-label={`Switch to ${isBlurred ? 'solid' : 'blurred'} background`}>
             {isBlurred ? (
-                <svg className="w-[4vw] h-[4vw] text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-[5vw] h-[5vw] sm:md:w-[3vw] sm:md:h-[3vw] text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" strokeWidth="2"/>
                     <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" strokeWidth="2"/>
                     <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" strokeWidth="2"/>
                     <line x1="2" y1="2" x2="22" y2="22" strokeWidth="2"/>
                 </svg>
             ) : (
-                <svg className="w-[4vw] h-[4vw] text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-[5vw] h-[5vw] sm:md:w-[3vw] sm:md:h-[3vw] text-black dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="3" strokeWidth="2"/>
                     <path d="M12 5.5C7 5.5 3 9.5 3 12s4 6.5 9 6.5 9-4 9-6.5-4-6.5-9-6.5" strokeWidth="2"/>
                     <path d="M12 8.5c-1.5 0-3 1-3 3.5s1.5 3.5 3 3.5 3-1 3-3.5-1.5-3.5-3-3.5" strokeWidth="2"/>
                 </svg>
             )}
         </button>
+    );
+
+    const ProjectCategoryDropdown = () => (
+        <div className="relative" ref={dropdownRef}>
+            <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className={`flex items-center gap-2 text-lg sm:md:text-lg font-light text-neutral-800 dark:text-neutral-200 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out hover:text-neutral-800 dark:hover:text-neutral-200 ${
+                    isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                }`}
+                aria-label="Select project category"
+                style={{animationDuration: '0.6s'}}
+            >
+                My {currentProjectCategory.displayName}
+                <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            
+            <div 
+                className={`absolute top-full left-0 py-2 rounded-lg min-w-[200px] z-50 transition-opacity duration-300 ${
+                    isDropdownOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                }`}
+            >
+                {projectCategories.map((category, index) => (
+                    <button
+                        key={category.key}
+                        onClick={() => handleCategorySelect(category)}
+                        className={`w-full text-left py-2 text-xl font-dm-sans hover:cursor-pointer transition-all duration-150 ${
+                            category.key === currentProjectCategory.key 
+                                ? 'text-black dark:text-white font-medium' 
+                                : 'text-neutral-600 dark:text-neutral-400'
+                        } ${
+                            isDropdownOpen 
+                                ? 'opacity-100 animate-float-in-top' 
+                                : 'opacity-0 animate-float-out-top'
+                        }`}
+                        style={{
+                            animationDelay: `${isDropdownOpen ? `${index * 0.08}s` : '0s'}`,
+                            animationDuration: '0.4s',
+                            animationTimingFunction: 'var(--smooth-anim)'
+                        }}
+                    >
+                        {category.displayName}
+                    </button>
+                ))}
+            </div>
+        </div>
     );
 
     const navigationItems = [
@@ -58,35 +140,54 @@ export default function Header() {
     ];
     return (
         <>
-            <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8">
+            {mounted && (
+                <Head>
+                    <meta 
+                        name="theme-color" 
+                        content={theme === 'dark' ? '#000000' : '#ffffff'} 
+                    />
+                </Head>
+            )}
+            <header className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8`}>
                 <div className="flex items-center gap-4">
                     <a href="/" className={`relative ${isOpen ? 'sm:md:opacity-0' : 'opacity-100'} top-[0.4px] flex items-center transition-all duration-300 hover:scale-105`} aria-label="Home">
                         <img 
-                            src={theme === 'dark' ? "/logos/logo_white_transparent.svg" : "/logos/logo_transparent.svg"}
+                            src="/logos/logo_transparent.svg"
                             alt="devliqht.dev logo" 
-                            className="w-12 h-12 sm:w-12 sm:h-12 md:lg:w-[5vw] md:lg:h-[5vw]"
+                            className="w-10 h-10 sm:w-10 sm:h-10 md:lg:w-[4vw] md:lg:h-[4vw] dark:hidden"
+                        />
+                        <img 
+                            src="/logos/logo_white_transparent.svg"
+                            alt="devliqht.dev logo" 
+                            className="w-10 h-10 sm:w-10 sm:h-10 md:lg:w-[4vw] md:lg:h-[4vw] hidden dark:block"
                         />
                     </a>
                     {currentSection && (
-                        <span className={`text-lg sm:md:text-xl font-light text-neutral-600 dark:text-neutral-400 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out ${
-                            isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-                        }`}>
-                            {currentSection}
-                        </span>          
+                        <>
+                            {isProjectsSection ? (
+                                <ProjectCategoryDropdown />
+                            ) : (
+                                <span className={`text-lg sm:md:text-xl font-light text-neutral-800 dark:text-neutral-400 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out ${
+                                    isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                                }`}>
+                                    {currentSection}
+                                </span>
+                            )}
+                        </>         
                     )}
                 </div>
                 
                 <button onClick={toggleMenu} className="p-4 transition-all duration-300 hover:scale-110" aria-label="Toggle menu">
-                    <div className="relative w-8 h-6 md:lg:scale-130 left-[0.2rem] sm:md:lg:right-[0.2rem]">
-                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'rotate-45 top-3' : 'top-0'}`}></span>
-                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'opacity-0' : 'top-3'}`}></span>
-                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? '-rotate-45 top-3' : 'top-6'}`}></span>
+                    <div className="relative w-6 h-5 md:lg:scale-110 left-[0.2rem] sm:md:lg:right-[0.2rem]">
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'rotate-45 top-2.5' : 'top-0'}`}></span>
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? 'opacity-0' : 'top-2.5'}`}></span>
+                        <span className={`absolute block w-full h-0.5 bg-gray-900 dark:bg-gray-100 transition-all duration-300 ${isOpen ? '-rotate-45 top-2.5' : 'top-5'}`}></span>
                     </div>
                 </button>
             </header>
             {(isOpen || isClosing) && (
                 <div className="fixed inset-0 z-40">
-                    <div className={`fixed inset-0 ${isBlurred ? 'backdrop-blur-[72px] bg-white/20 dark:bg-black/20' : 'bg-white dark:bg-black'} transition-opacity duration-600 ${isClosing ? 'opacity-0' : 'opacity-100'}`}></div>
+                    <div className={`fixed inset-0 ${isBlurred ? 'backdrop-blur-[72px] bg-white/40 dark:bg-black/40' : 'bg-white dark:bg-black'} transition-opacity duration-600 ${isClosing ? 'opacity-0' : 'opacity-100'}`}></div>
                     <div className={`relative z-10 flex flex-col justify-center items-start px-[1.6rem] sm:md:px-[5%] h-full transition-opacity duration-200 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
                         <nav className="space-y-4 mb-[12vh] sm:md:mb-0">
                             {/* <div className={`text-[8vw] sm:md:hidden font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-widest mb-4 transition-opacity ${isClosing ? 'opacity-0 animate-float-out-left' : 'opacity-100 animate-float-in-left'}`} style={{animationDelay: `0s`, animationDuration: `0.6s`, animationTimingFunction: `var(--smooth-anim)`}}>
@@ -94,7 +195,7 @@ export default function Header() {
                             </div> */}
                             {navigationItems.map((item, index) => (
                                 <div key={item.en} className={`transition-opacity ${isClosing ? 'opacity-0 animate-float-out-left' : 'opacity-100 animate-float-in-left'}`} style={{animationDelay: `${isClosing ? '0s' : `${index * 0.04}s`}`, animationDuration: `0.6s`, animationTimingFunction: `var(--smooth-anim)`}}>
-                                    <a href={`${item.link}`} className="block text-[9vw] sm:text-[11vw] md:text-[5vw] font-dm-sans bg-gradient-to-r hover:bg-none from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_#111827] dark:hover:[-webkit-text-stroke:2px_#f3f4f6] hover:-translate-y-1 transition-transform duration-300" onClick={handleNavClick}>
+                                    <a href={`${item.link}`} className="block text-[9vw] sm:text-[6vw] md:text-[4.6vw] font-dm-sans bg-gradient-to-r hover:bg-none from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_#111827] dark:hover:[-webkit-text-stroke:2px_#f3f4f6] hover:-translate-y-1 transition-transform duration-300" onClick={handleNavClick}>
                                         {item.en}
                                     </a>
                                     <p className="text-[1.4rem] sm:md:text-[2rem] pt-3 sm:md:lg:pt-0 font-baybayin text-gray-900 dark:text-gray-100 font-semibold tracking-tight opacity-70 -mt-4">
@@ -110,10 +211,10 @@ export default function Header() {
                                     <BlurToggle />
                                     <ThemeToggle />
                                 </div>
-                            <h1 className="text-[1.6rem] sm:text-[2rem] md:text-[4vw] font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-tight mt-4">
+                            <h1 className="text-[1.6rem] sm:text-[2rem] md:text-[3vw] font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-tight mt-4">
                               {theme === 'dark' ? 'where are we hiding today?' : 'where are we heading today?'}
                             </h1>
-                                <span className="text-[1.4rem] sm:text-[2rem] md:text-[3vw] text-gray-900 dark:text-gray-100 font-dm-sans font-semibold tracking-tighter">Matt Cabarrubias</span>
+                                <span className="text-[1.4rem] sm:text-[2rem] md:text-[2vw] text-gray-900 dark:text-gray-100 font-dm-sans font-semibold tracking-tighter">Matt Cabarrubias</span>
                             </div>
                             
                             <div className="flex space-x-3">
