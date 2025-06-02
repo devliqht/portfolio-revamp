@@ -255,7 +255,7 @@ body {
 } 
 
 .animated-dots-bg {
-  background-image: radial-gradient(circle at center, var(--foreground) 0.8px, transparent 1px);
+  background-image: radial-gradient(circle at center, var(--foreground) 0.5px, transparent 0.2px);
   background-size: 13px 13px;
   background-position: 0 0;
   background-repeat: repeat;
