@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
 
-import { projects } from '@/lib/projects';
+import { useSection } from '@/hooks/useSection';
 
 export default function ProjectsSection() {
   const [scroll_progress, set_scroll_progress] = useState(0);
@@ -10,6 +10,15 @@ export default function ProjectsSection() {
   const [previous_project, set_previous_project] = useState(0);
   const animation_frame_ref = useRef<number | null>(null);
   const last_scroll_time_ref = useRef<number>(0);
+  
+  const { currentProjectCategory } = useSection();
+  const current_projects = currentProjectCategory.projects;
+
+  useEffect(() => {
+    set_current_project(0);
+    set_previous_project(0);
+    set_scroll_progress(0);
+  }, [currentProjectCategory.key]);
 
   useEffect(() => {
     const handle_scroll = () => {
@@ -31,7 +40,7 @@ export default function ProjectsSection() {
           
           if (current_scroll_y >= section_top && current_scroll_y <= section_bottom) {
             const scroll_in_section = Math.max(0, current_scroll_y - section_top);
-            const total_height = projects.length * window.innerHeight;
+            const total_height = current_projects.length * window.innerHeight;
             
             const settle_in_buffer = window.innerHeight * 0.3;
             const adjusted_scroll_in_section = Math.max(0, scroll_in_section - settle_in_buffer);
@@ -40,9 +49,9 @@ export default function ProjectsSection() {
             const progress = Math.min(adjusted_scroll_in_section / adjusted_total_height, 1);
             set_scroll_progress(progress);
             
-            const exact_project_index = progress * projects.length;
+            const exact_project_index = progress * current_projects.length;
             const new_project_index = Math.floor(exact_project_index + 0.2); 
-            const new_project = Math.min(Math.max(0, new_project_index), projects.length - 1);
+            const new_project = Math.min(Math.max(0, new_project_index), current_projects.length - 1);
             
             if (new_project !== current_project) {
               set_previous_project(current_project);
@@ -60,13 +69,13 @@ export default function ProjectsSection() {
         cancelAnimationFrame(animation_frame_ref.current);
       }
     };
-  }, [current_project]);
+  }, [current_project, current_projects.length]);
   
   const is_moving_forward = current_project > previous_project;
-  const exact_project_index = useMemo(() => scroll_progress * projects.length, [scroll_progress]);
+  const exact_project_index = useMemo(() => scroll_progress * current_projects.length, [scroll_progress, current_projects.length]);
   
   const visible_projects = useMemo(() => {
-    return projects.map((project, index) => {
+    return current_projects.map((project, index) => {
       const base_offset = index - exact_project_index;
       const abs_offset = Math.abs(base_offset);
       
@@ -91,37 +100,37 @@ export default function ProjectsSection() {
         scale: Math.max(0.75, 1 - abs_offset * 0.25),
         opacity,
         rotate_y: base_offset * 5,
-        z_index: projects.length - Math.floor(abs_offset)
+        z_index: current_projects.length - Math.floor(abs_offset)
       };
     }).filter((project): project is NonNullable<typeof project> => project !== null);
-  }, [exact_project_index]);
+  }, [exact_project_index, current_projects]);
 
   return (
     <div 
       className="min-h-screen relative grid-bg" 
       id="projects" 
       style={{ 
-        height: `${projects.length * 100}vh`
+        height: `${current_projects.length * 100}vh`
       }}
     >
       <div className="sticky top-0 h-screen flex flex-col-reverse sm:md:flex-row"> 
-        <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1 relative z-[100]">
+        <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1 relative z-[40]">
           <div className="max-w-lg w-full sm:md:p-8">
-            <div key={current_project} className="transition-all duration-300 ease-out" /*style={{ animation: is_moving_forward ? 'slideUp 0.3s ease-out' : 'slideDown 0.3s ease-out' }} */>
-              <h3 className="text-[6rem] sm:md:text-[12vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans relative z-[9999]">
-                {projects[current_project]?.title}
+            <div key={`${currentProjectCategory.key}-${current_project}`} className="transition-all duration-300 ease-out">
+              <h3 className="text-[4rem] sm:md:lg:text-[9vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans relative z-[30]">
+                {current_projects[current_project]?.title}
               </h3>
               {/* <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-200 mb-6 leading-relaxed tracking-tight font-extralight font-dm-sans">
-                {projects[current_project]?.description}
+                {current_projects[current_project]?.description}
               </p> */}
               <div className="flex flex-wrap gap-2 mb-6">
-                {projects[current_project]?.tags.slice(0, 8).map((tag, index) => (
+                {current_projects[current_project]?.tags.slice(0, 8).map((tag, index) => (
                   <span key={index} className="px-3 py-1 bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 rounded-full tracking-tight text-xs lg:text-sm font-light">
                     {tag}
                   </span>
                 ))}
               </div>
-              <a href={projects[current_project]?.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 text-black border-[1px] border-black dark:border-white dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg transition-colors duration-100">
+              <a href={current_projects[current_project]?.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center w-fit gap-2 px-6 py-3 text-black border-[1px] border-black dark:border-white dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg transition-colors duration-100">
                 View Project
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -137,7 +146,7 @@ export default function ProjectsSection() {
             </div>
             <div className="relative w-full max-w-2xl h-80 lg:h-96" style={{ perspective: '1000px' }}>
               {visible_projects.map((project) => (
-                <div key={project.id} className="absolute inset-0 will-change-transform" style={{ transform: `translate3d(${project.translate_x}px, 0, ${project.translate_z}px) rotateY(${project.rotate_y}deg) scale(${project.scale})`, opacity: project.opacity, zIndex: project.z_index }}>
+                <div key={`${currentProjectCategory.key}-${project.id}`} className="absolute inset-0 will-change-transform" style={{ transform: `translate3d(${project.translate_x}px, 0, ${project.translate_z}px) rotateY(${project.rotate_y}deg) scale(${project.scale})`, opacity: project.opacity, zIndex: project.z_index }}>
                   <div className="relative w-full h-full">
                     <div className="w-full h-full overflow-hidden rounded-lg" style={{ transform: 'translateZ(20px)', maxWidth: '1000px', maxHeight: '400px', margin: '0 auto' }}>
                       <Image src={project.imageUrl} alt={project.title} fill className="object-contain" sizes="(max-width: 768px) 90vw, 600px" priority={project.abs_offset <= 1} loading={project.abs_offset <= 1 ? 'eager' : 'lazy'} />
@@ -150,11 +159,11 @@ export default function ProjectsSection() {
               ))}
             </div>
             <div className="absolute bottom-4 lg:bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
-              {projects.map((_, index) => {
+              {current_projects.map((_, index) => {
                 const distance_from_current = Math.abs(index - exact_project_index);
                 const isActive = distance_from_current < 0.7;
                 return (
-                  <div key={index} className={`h-2 rounded-full transition-all duration-200 ${isActive ? 'bg-black dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-500'}`} style={{width: isActive ? '24px' : '8px'}}/>
+                  <div key={`${currentProjectCategory.key}-indicator-${index}`} className={`h-2 rounded-full transition-all duration-200 ${isActive ? 'bg-black dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-500'}`} style={{width: isActive ? '24px' : '8px'}}/>
                 );
               })}
             </div>
