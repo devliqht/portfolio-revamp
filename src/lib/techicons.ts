@@ -7,7 +7,7 @@ import {
   } from 'react-icons/si';
 
 interface TechIcon {
-    Icon: React.ComponentType<any>;
+    Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     name: string;
     color: string;
     x: number; 
