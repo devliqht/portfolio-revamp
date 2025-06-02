@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { projectCategories, getDefaultCategory, type ProjectCategory } from '@/lib/projects';
+import { getDefaultCategory, type ProjectCategory } from '@/lib/projects';
 
 interface SectionContextType {
   currentSection: string;
