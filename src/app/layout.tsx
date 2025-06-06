@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dm_sans.variable} ${baybayin.variable}`} suppressHydrationWarning={true}>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <SectionProvider>
             <Header />
             {children}
