@@ -32,8 +32,10 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
     const handleScroll = () => {
       const sections = [
         { id: 'landing', text: '' },
+        { id: 'about', text: 'About Me' },
         { id: 'projects', text: currentProjectCategory.displayName },
-        { id: 'tech', text: 'Technologies'}
+        { id: 'tech', text: 'Technologies'},
+        { id: 'contact', text: 'Contact Me'}
       ];
 
       let currentSectionText = '';
