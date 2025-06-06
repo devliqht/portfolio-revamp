@@ -6,6 +6,8 @@ import { SiReact, SiVercel, SiPhp, SiLaravel, SiJavascript, SiTailwindcss } from
 import Typewriter from '@/components/typewriter';
 import ProjectsSection from '@/app/projects/page';
 import TechSection from '@/app/tech/page';
+import AboutSection from '@/app/about/page';
+import Footer from '@/components/footer';
 
 export default function Home() {
   const [isTypewriterComplete, setIsTypewriterComplete] = useState(false);
@@ -68,6 +70,8 @@ export default function Home() {
 
       <TechSection />
       <ProjectsSection />
+      <AboutSection />
+      <Footer />
     </main>
   );
 }
