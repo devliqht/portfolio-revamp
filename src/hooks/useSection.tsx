@@ -6,7 +6,6 @@ interface SectionContextType {
   currentSection: string;
   isVisible: boolean;
   setSectionText: (section: string) => void;
-  // Project category management
   currentProjectCategory: ProjectCategory;
   setProjectCategory: (category: ProjectCategory) => void;
   isProjectsSection: boolean;
@@ -35,7 +34,8 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
         { id: 'about', text: 'About Me' },
         { id: 'projects', text: currentProjectCategory.displayName },
         { id: 'tech', text: 'Technologies'},
-        { id: 'contact', text: 'Contact Me'}
+        { id: 'contact', text: 'Contact Me'},
+        { id: 'skills', text: 'Skills'}
       ];
 
       let currentSectionText = '';
@@ -58,7 +58,6 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Update projects section state
       if (isInProjectsSection !== isProjectsSection) {
         setIsProjectsSection(isInProjectsSection);
       }
