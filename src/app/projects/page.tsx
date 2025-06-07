@@ -55,7 +55,7 @@ const extractColorsFromImage = (imageUrl: string): Promise<string[]> => {
           });
 
         resolve(sortedColors.length > 0 ? sortedColors : ['#3b82f6', '#8b5cf6', '#f59e0b']);
-      } catch (error) {
+      } catch {
         resolve(['#3b82f6', '#8b5cf6', '#f59e0b']); 
       }
     };

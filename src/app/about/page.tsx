@@ -14,7 +14,7 @@ const AboutSection: React.FC = () => {
       },
       { threshold: 0.1 }
     );
-    let currentRef = sectionRef.current;
+    const currentRef = sectionRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
