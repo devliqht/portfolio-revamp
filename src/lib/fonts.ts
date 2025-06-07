@@ -1,6 +1,5 @@
 import { DM_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
-import '@/styles/globals.css';
 
 const dm_sans = DM_Sans({
     subsets: ['latin'],
@@ -9,7 +8,7 @@ const dm_sans = DM_Sans({
 });
 
 const baybayin = localFont({
-    src: '../../public/fonts/Baybayin-Regular.ttf',
+    src: '../app/fonts/Baybayin-Regular.ttf',
     variable: '--font-baybayin',
     display: 'swap',
 });
