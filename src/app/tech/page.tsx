@@ -98,6 +98,7 @@ const TechSection: React.FC = () => {
     const initTimeout = setTimeout(handler, 0); 
     window.addEventListener('scroll', handler, { passive: true }); 
     window.addEventListener('resize', handler, { passive: true });
+    
     return () => {
       clearTimeout(initTimeout);
       window.removeEventListener('scroll', handler);
