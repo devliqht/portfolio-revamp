@@ -32,23 +32,11 @@ const AboutSection: React.FC = () => {
 
   return (
     <> 
-      <section 
-        ref={sectionRef}
-        className="bg-white dark:bg-black relative overflow-hidden" 
-        id="about"
-      >
+      <section ref={sectionRef} className="bg-white dark:bg-black relative overflow-hidden" id="about">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-64 h-64 bg-neutral-200/10 dark:bg-neutral-800/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-neutral-300/10 dark:bg-neutral-700/10 rounded-full blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.1] dark:opacity-[0.02]" 
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(0, 0, 0, 1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 1) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }}
-          />
+          <div className="absolute inset-0 opacity-[0.1] dark:opacity-[0.02]" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 1) 1px, transparent 1px)`, backgroundSize: '50px 50px' }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
@@ -100,7 +88,7 @@ const AboutSection: React.FC = () => {
                       University of San Carlos 2022 - 2024
                     </p>
                     <p className="text-neutral-700 dark:text-neutral-300 mt-2 text-sm">
-                      Enrolled in Technology Track of the Philippines' STEM curriculum. Relevant coursework include Computer Fundamentals and Programming.
+                      Enrolled in Technology Track of the Philippines&apos; STEM curriculum. Relevant coursework include Computer Fundamentals and Programming.
                     </p>
                   </div>
                   <div className="border-l-4 border-neutral-400 dark:border-neutral-600 pl-6">
