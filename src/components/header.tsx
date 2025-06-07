@@ -83,25 +83,12 @@ export default function Header() {
 
     const ProjectCategoryDropdown = () => (
         <div className="relative" ref={dropdownRef}>
-            <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`flex items-center gap-2 text-lg sm:md:text-lg font-light text-neutral-800 dark:text-neutral-200 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out hover:text-neutral-800 dark:hover:text-neutral-200 ${
-                    isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-                }`}
-                aria-label="Select project category"
-                style={{animationDuration: '0.6s'}}
-            >
+            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`flex items-center gap-2 text-lg sm:md:text-lg font-light text-neutral-800 dark:text-neutral-200 tracking-wide font-dm-sans transition-all duration-300 ease-in-out hover:text-neutral-800 dark:hover:text-neutral-200 ${isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`} aria-label="Select project category" style={{animationDuration: '0.6s'}}>
                 My {currentProjectCategory.displayName}
-                <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                >
+                <svg className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            
             <div 
                 className={`absolute top-full left-0 py-2 rounded-lg min-w-[200px] z-50 transition-opacity duration-300 ${
                     isDropdownOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -144,10 +131,7 @@ export default function Header() {
         <>
             {mounted && (
                 <Head>
-                    <meta 
-                        name="theme-color" 
-                        content={theme === 'dark' ? '#000000' : '#ffffff'} 
-                    />
+                    <meta name="theme-color" content={theme === 'dark' ? '#000000' : '#ffffff'} />
                 </Head>
             )}
             <header className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 sm:p-6 md:p-8`}>
@@ -173,7 +157,7 @@ export default function Header() {
                             {isProjectsSection ? (
                                 <ProjectCategoryDropdown />
                             ) : (
-                                <span className={`text-lg sm:md:text-xl font-light text-neutral-800 dark:text-neutral-400 tracking-wide font-dm-sans uppercase transition-all duration-300 ease-in-out ${
+                                <span className={`text-lg sm:md:text-lg font-light text-neutral-800 dark:text-neutral-200 tracking-wide font-dm-sans transition-all duration-300 ease-in-out ${
                                     isVisible && !isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
                                 }`}>
                                     {currentSection}
