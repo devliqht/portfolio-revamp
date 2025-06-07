@@ -4,11 +4,77 @@ import Image from 'next/image';
 
 import { useSection } from '@/hooks/useSection';
 
+const extractColorsFromImage = (imageUrl: string): Promise<string[]> => {
+  return new Promise((resolve) => {
+    const img = document.createElement('img') as HTMLImageElement;
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        resolve(['#3b82f6', '#8b5cf6', '#f59e0b']); 
+        return;
+      }
+
+      const maxSize = 50; 
+      const scaleFactor = Math.min(maxSize / img.width, maxSize / img.height);
+      canvas.width = img.width * scaleFactor;
+      canvas.height = img.height * scaleFactor;
+
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+      try {
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const colorMap = new Map<string, number>();
+
+        for (let i = 0; i < data.length; i += 32) { 
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          const alpha = data[i + 3];
+
+          // Skip transparent pixels and very dark/light colors
+          if (alpha < 128 || (r + g + b) < 50 || (r + g + b) > 700) continue;
+
+          const quantizedR = Math.floor(r / 64) * 64; 
+          const quantizedG = Math.floor(g / 64) * 64;
+          const quantizedB = Math.floor(b / 64) * 64;
+          
+          const colorKey = `${quantizedR},${quantizedG},${quantizedB}`;
+          colorMap.set(colorKey, (colorMap.get(colorKey) || 0) + 1);
+        }
+
+        const sortedColors = Array.from(colorMap.entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3) // Reduced from 6
+          .map(([color]) => {
+            const [r, g, b] = color.split(',').map(Number);
+            return `rgb(${r}, ${g}, ${b})`;
+          });
+
+        resolve(sortedColors.length > 0 ? sortedColors : ['#3b82f6', '#8b5cf6', '#f59e0b']);
+      } catch (error) {
+        resolve(['#3b82f6', '#8b5cf6', '#f59e0b']); 
+      }
+    };
+
+    img.onerror = () => {
+      resolve(['#3b82f6', '#8b5cf6', '#f59e0b']); 
+    };
+
+    img.src = imageUrl;
+  });
+};
+
 export default function ProjectsSection() {
   const [scroll_progress, set_scroll_progress] = useState(0);
   const [current_project, set_current_project] = useState(0);
+  const [background_colors, set_background_colors] = useState<string[]>(['#3b82f6', '#8b5cf6', '#f59e0b']); 
   const animation_frame_ref = useRef<number | null>(null);
   const last_scroll_time_ref = useRef<number>(0);
+  const color_cache_ref = useRef<Map<string, string[]>>(new Map());
   
   const { currentProjectCategory } = useSection();
   const current_projects = currentProjectCategory.projects;
@@ -17,6 +83,27 @@ export default function ProjectsSection() {
     set_current_project(0);
     set_scroll_progress(0);
   }, [currentProjectCategory.key]);
+
+  useEffect(() => {
+    const currentProjectData = current_projects[current_project];
+    if (!currentProjectData) return;
+    const imageUrl = currentProjectData.imageUrl;
+    
+    if (color_cache_ref.current.has(imageUrl)) {
+      const cachedColors = color_cache_ref.current.get(imageUrl)!;
+      set_background_colors(cachedColors);
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      extractColorsFromImage(imageUrl).then((colors) => {
+        color_cache_ref.current.set(imageUrl, colors);
+        set_background_colors(colors);
+      });
+    }, 100); 
+
+    return () => clearTimeout(timeoutId);
+  }, [current_project, current_projects]);
 
   useEffect(() => {
     const handle_scroll = () => {
@@ -102,17 +189,27 @@ export default function ProjectsSection() {
 
   return (
     <div 
-      className="min-h-screen relative grid-bg" 
+      className="min-h-screen relative" 
       id="projects" 
       style={{ 
         height: `${current_projects.length * 100}vh`
       }}
     >
+      <div className="absolute inset-0 transition-all duration-700 ease-out" style={{ zIndex: -10 }}>
+        <div
+          className="absolute inset-0 opacity-20 transition-all duration-700 ease-out"
+          style={{
+            background: `linear-gradient(135deg, ${background_colors[0] || '#3b82f6'} 0%, ${background_colors[1] || '#8b5cf6'} 50%, ${background_colors[2] || '#f59e0b'} 100%)`,
+            filter: 'blur(60px)',
+          }}
+        />
+      </div>
+
       <div className="sticky top-0 h-screen flex flex-col-reverse sm:md:flex-row"> 
         <div className="w-full lg:w-2/5 flex items-center justify-center h-full p-6 lg:p-1 relative z-[40]">
           <div className="max-w-lg w-full sm:md:p-8">
             <div key={`${currentProjectCategory.key}-${current_project}`} className="transition-all duration-300 ease-out">
-              <h3 className="text-[4rem] sm:md:lg:text-[9vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans relative z-[30]">
+              <h3 className="text-[3.2rem] sm:md:lg:text-[9vw] font-semibold text-neutral-900 dark:text-neutral-100 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-transparent dark:hover:[-webkit-text-stroke:2px_white] mb-4 tracking-tighter leading-[0.8] font-dm-sans relative z-[30]">
                 {current_projects[current_project]?.title}
               </h3>
               {/* <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-200 mb-6 leading-relaxed tracking-tight font-extralight font-dm-sans">
@@ -166,39 +263,6 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      <style jsx>{`
-        .grid-bg {
-          background-image: 
-            linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-          background-size: 20px 20px;
-          background-attachment: fixed;
-        }
-        
-        :global(.dark) .grid-bg {
-          background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-        }
-        
-        @keyframes slideUp {
-          0% {
-            transform: translateY(15px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideDown {
-          0% {
-            transform: translateY(-15px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 } 
