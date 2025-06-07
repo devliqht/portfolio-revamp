@@ -49,7 +49,7 @@ const ContactSection: React.FC = () => {
       } else {
         setSubmitStatus('error');
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -133,21 +133,19 @@ const ContactSection: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Information */}
           <div className={`space-y-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <div>
               <h3 className="text-3xl md:text-6xl font-dm-sans font-light text-black dark:text-white mb-6 tracking-tighter">
-                Let's Connect
+                Let&apos;s Connect
               </h3>
               <div className="space-y-4 text-2xl tracking-tight font-extralight text-neutral-700 dark:text-neutral-300 leading-relaxed">
                 <p>
-                  I'm always open to discussing new opportunities, collaborations, or just having a conversation about technology and development. 
+                  I&apos;m always open to discussing new opportunities, collaborations, or just having a conversation about technology and development. 
                   Feel free to reach out through any of the channels below.
                 </p>
               </div>
             </div>
 
-            {/* Contact Details */}
             <div className="space-y-6">
               <h4 className="text-2xl md:text-4xl font-dm-sans font-light text-black dark:text-white mb-4 tracking-tighter">
                 Contact Information
@@ -283,7 +281,7 @@ const ContactSection: React.FC = () => {
               {submitStatus === 'success' && (
                 <div className="p-4 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
                   <p className="text-green-800 dark:text-green-200 font-dm-sans">
-                    Message sent successfully! I'll get back to you soon.
+                    Message sent successfully! I&apos;ll get back to you soon.
                   </p>
                 </div>
               )}
