@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 import Header from '@/components/header';
 import { dm_sans, baybayin } from '@/lib/fonts';
 import { SectionProvider } from '@/hooks/useSection';
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "devliqht - Matt Cabarrubias",
@@ -49,6 +50,7 @@ export default function RootLayout({
             {children}
           </SectionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
