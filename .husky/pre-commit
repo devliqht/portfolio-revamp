@@ -1,0 +1,8 @@
+# Run prettier to format code
+bun run format
+
+# Run ESLint to check for linting issues
+bun run lint
+
+# Add the formatted files back to staging
+git add .

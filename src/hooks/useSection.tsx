@@ -1,14 +1,10 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getDefaultCategory, type ProjectCategory } from '@/lib/projects';
 
 interface SectionContextType {
   currentSection: string;
   isVisible: boolean;
   setSectionText: (section: string) => void;
-  currentProjectCategory: ProjectCategory;
-  setProjectCategory: (category: ProjectCategory) => void;
-  isProjectsSection: boolean;
 }
 
 const SectionContext = createContext<SectionContextType | undefined>(undefined);
@@ -16,15 +12,9 @@ const SectionContext = createContext<SectionContextType | undefined>(undefined);
 export function SectionProvider({ children }: { children: React.ReactNode }) {
   const [currentSection, setCurrentSection] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [currentProjectCategory, setCurrentProjectCategory] = useState<ProjectCategory>(getDefaultCategory());
-  const [isProjectsSection, setIsProjectsSection] = useState(false);
 
   const setSectionText = (section: string) => {
     setCurrentSection(section);
-  };
-
-  const setProjectCategory = (category: ProjectCategory) => {
-    setCurrentProjectCategory(category);
   };
 
   useEffect(() => {
@@ -32,34 +22,28 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
       const sections = [
         { id: 'landing', text: '' },
         { id: 'about', text: 'About Me' },
-        { id: 'projects', text: currentProjectCategory.displayName },
-        { id: 'tech', text: 'Technologies'},
-        { id: 'contact', text: 'Contact Me'},
-        { id: 'skills', text: 'Skills'}
+        { id: 'projects', text: 'Projects' },
+        { id: 'tech', text: 'Technologies' },
+        { id: 'contact', text: 'Contact Me' },
+        { id: 'skills', text: 'Skills' },
       ];
 
       let currentSectionText = '';
-      let isInProjectsSection = false;
-      
+
       for (const section of sections) {
         const element = document.getElementById(section.id);
         if (element) {
           const rect = element.getBoundingClientRect();
           // More conservative detection - section needs to be significantly in view
-          const isInView = rect.top <= window.innerHeight * 0.2 && rect.bottom >= window.innerHeight * 0.8;
-          
+          const isInView =
+            rect.top <= window.innerHeight * 0.2 &&
+            rect.bottom >= window.innerHeight * 0.8;
+
           if (isInView) {
             currentSectionText = section.text;
-            if (section.id === 'projects') {
-              isInProjectsSection = true;
-            }
             break;
           }
         }
-      }
-
-      if (isInProjectsSection !== isProjectsSection) {
-        setIsProjectsSection(isInProjectsSection);
       }
 
       if (currentSectionText !== currentSection) {
@@ -82,20 +66,19 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); 
-    
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentSection, currentProjectCategory.displayName, isProjectsSection]);
+  }, [currentSection]);
 
   return (
-    <SectionContext.Provider value={{ 
-      currentSection, 
-      isVisible, 
-      setSectionText,
-      currentProjectCategory,
-      setProjectCategory,
-      isProjectsSection
-    }}>
+    <SectionContext.Provider
+      value={{
+        currentSection,
+        isVisible,
+        setSectionText,
+      }}
+    >
       {children}
     </SectionContext.Provider>
   );
@@ -107,4 +90,4 @@ export function useSection() {
     throw new Error('useSection must be used within a SectionProvider');
   }
   return context;
-} 
+}
