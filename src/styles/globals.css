@@ -20,8 +20,22 @@
 body {
   background: var(--background);
   font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
+  /* Disable all artificial smooth scrolling to prevent conflicts with OS-native scrolling */
+  scroll-behavior: auto;
 }
+
+/* Ensure all elements use native scrolling - no artificial smoothing */
+*,
+*::before,
+*::after {
+  scroll-behavior: auto !important;
+}
+
+/* Let the operating system handle scroll smoothing naturally:
+   - macOS trackpads already have momentum scrolling
+   - Windows touchpads have their own smoothing
+   - Mouse wheels will be discrete as expected
+   - This prevents double-smoothing conflicts */
 
 .font-baybayin {
   font-family: var(--font-baybayin);

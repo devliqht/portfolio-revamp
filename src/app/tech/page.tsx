@@ -121,8 +121,8 @@ const TechSection: React.FC = () => {
 
   useEffect(() => {
     const handler = () => throttledUpdate.current();
+    const currentThrottled = throttledUpdate.current;
     const initTimeout = setTimeout(handler, 0);
-    const throttledUpdateRef = throttledUpdate.current;
     window.addEventListener('scroll', handler, { passive: true });
     window.addEventListener('resize', handler, { passive: true });
 
@@ -130,7 +130,7 @@ const TechSection: React.FC = () => {
       clearTimeout(initTimeout);
       window.removeEventListener('scroll', handler);
       window.removeEventListener('resize', handler);
-      throttledUpdateRef.cancel();
+      currentThrottled.cancel();
     };
   }, [updateScrollState]);
 
@@ -249,7 +249,7 @@ const TechSection: React.FC = () => {
             return (
               <div
                 key={tech.id}
-                className='absolute transition-all duration-300 ease-out'
+                className='absolute'
                 style={{
                   left: '50%',
                   top: '50%',
@@ -265,8 +265,6 @@ const TechSection: React.FC = () => {
                   opacity: opacity,
                   zIndex: Math.floor(5000 - finalWorldZ),
                   willChange: 'transform, opacity',
-                  transitionProperty: 'transform, opacity',
-                  transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
                 }}
               >
                 <div className={`relative group`}>

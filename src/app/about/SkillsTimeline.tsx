@@ -179,13 +179,16 @@ export const SkillsTimeline: React.FC = () => {
         <div className='relative w-full flex-grow h-[600px] overflow-hidden'>
           <div
             ref={timelineContentRef}
-            className='relative flex items-center transition-transform duration-[25ms] ease-linear'
+            className='relative flex items-center transition-transform duration-300 ease-out'
             style={{
               transform: `translateX(-${scrollOffset}px)`,
               width: `${ComputerSkills.length * timelineItemWidth}px`,
               height: '100%',
               paddingLeft: `calc(50vw - ${timelineItemWidth / 2}px)`,
               paddingRight: `calc(50vw - ${timelineItemWidth / 2}px)`,
+              transitionProperty: 'transform',
+              transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+              willChange: 'transform',
             }}
           >
             <div
@@ -219,7 +222,7 @@ export const SkillsTimeline: React.FC = () => {
                     }}
                   />
                   <div
-                    className='relative flex flex-col items-center'
+                    className='relative flex flex-col items-center transition-all duration-300 ease-out'
                     style={{
                       width: `${cardWidth}px`,
                       transform: isEven
@@ -228,7 +231,11 @@ export const SkillsTimeline: React.FC = () => {
                     }}
                   >
                     <div
-                      className={`bg-white dark:bg-black rounded-lg p-6 w-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:cursor-pointer ${isEven ? 'order-1' : 'order-2'}`}
+                      className={`bg-white dark:bg-black rounded-lg p-6 w-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:cursor-pointer border-2 border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 ${isEven ? 'order-1' : 'order-2'}`}
+                      style={{
+                        willChange: 'transform, box-shadow',
+                        backfaceVisibility: 'hidden',
+                      }}
                     >
                       <div className='flex items-center gap-4 mb-3'>
                         <div className='text-black dark:text-white'>
@@ -251,7 +258,11 @@ export const SkillsTimeline: React.FC = () => {
                       </p>
                     </div>
                     <div
-                      className={`w-1 bg-black dark:bg-white h-16 ${isEven ? 'order-2 mt-2' : 'order-1 mb-2'}`}
+                      className={`w-1 bg-black dark:bg-white h-16 transition-all duration-300 ease-out ${isEven ? 'order-2 mt-2' : 'order-1 mb-2'}`}
+                      style={{
+                        willChange: 'transform',
+                        backfaceVisibility: 'hidden',
+                      }}
                     />
                   </div>
                 </div>
