@@ -9,13 +9,42 @@ export interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: 'GDG USC Welcome Site',
+    imageUrl: '/projects/welcome.png',
+    tags: ['Astro', 'React', 'TypeScript', 'Three.js', 'Tailwind', 'Vercel'],
+    link: 'https://usc.gdgoc.tech',
+  },
+  {
+    id: 2,
+    title: 'GDG USC Dashboard',
+    imageUrl: '/projects/dashboard.png',
+    tags: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Tailwind',
+      'Supabase',
+      'Google Cloud',
+      'Cloudflare',
+    ],
+    link: 'https://dashboard.gdgoc.tech',
+  },
+  {
+    id: 3,
+    title: 'GDG USC Merch Portal',
+    imageUrl: '/projects/merch.png',
+    tags: ['WordPress', 'Elementor', 'WooCommerce'],
+    link: 'https://merch.gdgoc.tech',
+  },
+  {
+    id: 4,
     title: 'Dentalign CMS',
     imageUrl: '/projects/northhill.png',
     tags: ['PHP', 'Tailwind', 'Bun', 'Prettier'],
     link: 'https://github.com/devliqht/dentalign',
   },
   {
-    id: 2,
+    id: 5,
     title: 'Schola',
     imageUrl: '/projects/schola.png',
     tags: [
@@ -32,7 +61,7 @@ const projects: Project[] = [
     link: 'https://github.com/devliqht/schola',
   },
   {
-    id: 3,
+    id: 6,
     title: 'VLSM Calculator',
     imageUrl: '/projects/vlsm.png',
     tags: [
@@ -47,7 +76,7 @@ const projects: Project[] = [
     link: 'https://vlsm-calculator.dcism.org',
   },
   {
-    id: 4,
+    id: 7,
     title: 'Portfolio',
     imageUrl: '/projects/portfolio.png',
     tags: [
@@ -63,7 +92,7 @@ const projects: Project[] = [
     link: 'https://github.com/devliqht/portfolio',
   },
   {
-    id: 6,
+    id: 8,
     title: 'OSA Violation Tracker',
     imageUrl: '/projects/osa.png',
     tags: [
@@ -79,7 +108,7 @@ const projects: Project[] = [
     link: 'https://github.com/devliqht/violation-tracker',
   },
   {
-    id: 7,
+    id: 9,
     title: 'Lab Database System',
     imageUrl: '/projects/res.png',
     tags: [
@@ -94,13 +123,6 @@ const projects: Project[] = [
       'Capstone',
     ],
     link: 'https://github.com/devliqht/res-proiect',
-  },
-  {
-    id: 8,
-    title: 'Canticum',
-    imageUrl: '/projects/canticum.png',
-    tags: ['React', 'Bun', 'Vite', 'TailwindCSS', 'DaisyUI', 'Spotify API'],
-    link: 'https://github.com/devliqht/canticum',
   },
 ];
 

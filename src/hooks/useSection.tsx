@@ -26,6 +26,7 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
         { id: 'tech', text: 'Technologies' },
         { id: 'contact', text: 'Contact Me' },
         { id: 'skills', text: 'Skills' },
+        { id: 'experience', text: 'Experiences' },
       ];
 
       let currentSectionText = '';

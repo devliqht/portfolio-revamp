@@ -21,7 +21,7 @@ const rafThrottle = (callback: () => void) => {
   return throttled;
 };
 
-const TechSection: React.FC = () => {
+const TechSectionSW: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [visibleIcons, setVisibleIcons] = useState<string[]>([]);
@@ -269,7 +269,7 @@ const TechSection: React.FC = () => {
               >
                 <div className={`relative group`}>
                   <tech.Icon
-                    className={`w-16 h-16 md:w-20 md:h-20`}
+                    className={`w-16 h-16 md:w-20 md:h-20 dark:invert`}
                     style={{ color: tech.color }}
                   />
                   <div
@@ -324,4 +324,4 @@ const TechSection: React.FC = () => {
   );
 };
 
-export default TechSection;
+export default TechSectionSW;

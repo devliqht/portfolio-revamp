@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { SiGithub, SiInstagram } from 'react-icons/si';
+import { SiGithub, SiInstagram, SiLinkedin } from 'react-icons/si';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
                 </h3>
                 <a
                   href='mailto:hello@devliqht.dev'
-                  className='text-2xl sm:text-3xl font-dm-sans font-light text-black dark:text-white hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300 group-hover:tracking-wide'
+                  className='text-2xl sm:text-3xl font-dm-sans font-light text-black dark:text-white hover:text-neutral-600 dark:hover:text-neutral-400 transition-all duration-300 group-hover:tracking-wide'
                 >
                   matt.cabarrubias@gmail.com
                 </a>
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
                 <h3 className='text-sm font-dm-sans font-medium tracking-widest uppercase text-neutral-500 dark:text-neutral-500 mb-2'>
                   Location
                 </h3>
-                <div className='text-2xl sm:text-3xl font-dm-sans font-light text-black dark:text-white group-hover:tracking-wide transition-all duration-300'>
+                <div className='text-2xl sm:text-3xl font-dm-sans font-light text-black dark:text-white group-hover:tracking-wide transition-all duration-300 hover:cursor-pointer'>
                   Cebu City, Philippines
                 </div>
               </div>
@@ -63,7 +63,11 @@ const Footer: React.FC = () => {
                     href: 'https://github.com/devliqht',
                     label: 'GitHub',
                   },
-                  // { Icon: SiLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+                  {
+                    Icon: SiLinkedin,
+                    href: 'https://linkedin.com/in/devliqht',
+                    label: 'LinkedIn',
+                  },
                   {
                     Icon: SiInstagram,
                     href: 'https://instagram.com/mxttgacab',
@@ -94,7 +98,7 @@ const Footer: React.FC = () => {
               Matt Cabarrubias
             </div>
             <div className='text-lg font-dm-sans font-thin text-neutral-600 dark:text-neutral-400'>
-              full-stack developer
+              Full-Stack Developer
             </div>
           </div>
 

@@ -12,9 +12,11 @@ import {
 
 import Typewriter from '@/components/typewriter';
 import ProjectsSection from '@/app/projects/page';
-import TechSection from '@/app/tech/page';
+// import TechSection from '@/app/tech/page';
+import TechSectionSW from '@/app/tech/page';
+import ExperienceSection from '@/app/experience/page';
 import Footer from '@/components/footer';
-import { SkillsTimeline } from '@/app/about/SkillsTimeline';
+// import { SkillsTimeline } from '@/app/about/SkillsTimeline';
 
 export default function Home() {
   const [isTypewriterComplete, setIsTypewriterComplete] = useState(false);
@@ -110,9 +112,11 @@ export default function Home() {
         </div>
       </div>
 
-      <TechSection />
+      <TechSectionSW />
+      {/*<TechSection />*/}
       <ProjectsSection />
-      <SkillsTimeline />
+      <ExperienceSection />
+      {/*<SkillsTimeline />*/}
       <Footer />
     </main>
   );

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 
 import { projects, type Project } from '@/lib/projects';
 
@@ -99,6 +100,7 @@ export default function ProjectsSection() {
     () => scroll_progress * current_projects.length,
     [scroll_progress, current_projects.length]
   );
+
   const visible_projects = useMemo(() => {
     return current_projects
       .map((project: Project, index: number) => {
@@ -178,19 +180,7 @@ export default function ProjectsSection() {
                 className='inline-flex items-center w-fit gap-2 px-6 py-3 text-black border-[1px] border-black dark:border-white dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg transition-colors duration-100'
               >
                 View Project
-                <svg
-                  className='w-4 h-4'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-                  />
-                </svg>
+                <ExternalLink className='w-4 h-4' />
               </a>
             </div>
           </div>
@@ -232,6 +222,7 @@ export default function ProjectsSection() {
                         sizes='(max-width: 768px) 90vw, 600px'
                         priority={project.abs_offset <= 1}
                         loading={project.abs_offset <= 1 ? 'eager' : 'lazy'}
+                        quality={100}
                       />
                       {project.abs_offset < 0.5 && (
                         <div className='absolute inset-0 bg-gradient-to-t from-black/5 to-transparent' />
