@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import { MdEmail, MdPhone, MdLocationOn, MdSend } from 'react-icons/md';
-import { SiGithub, SiInstagram } from 'react-icons/si';
+import { SiGithub, SiInstagram, SiLinkedin } from 'react-icons/si';
 
 const ContactSection: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -86,12 +86,12 @@ const ContactSection: React.FC = () => {
       href: 'https://github.com/devliqht',
       hoverColor: 'hover:text-[#333] dark:hover:text-[#f0f6fc]',
     },
-    // {
-    //   icon: <SiLinkedin className="w-6 h-6" />,
-    //   label: "LinkedIn",
-    //   href: "https://linkedin.com/in/mattcabarrubias",
-    //   hoverColor: "hover:text-[#0077B5]"
-    // },
+    {
+      icon: <SiLinkedin className='w-6 h-6' />,
+      label: 'LinkedIn',
+      href: 'https://linkedin.com/in/devliqht',
+      hoverColor: 'hover:text-[#0077B5]',
+    },
     {
       icon: <SiInstagram className='w-6 h-6' />,
       label: 'Instagram',
@@ -130,9 +130,9 @@ const ContactSection: React.FC = () => {
 
       <div className='relative z-10 max-w-7xl mx-auto px-6 py-20'>
         <div
-          className={`text-center mb-16 mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`sm:text-center sm:mb-16 mt-4 sm:mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-          <h2 className='text-[14vw] sm:text-6xl md:lg:text-[6vw] font-dm-sans font-semibold text-black dark:text-white tracking-tight mb-4 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white]'>
+          <h2 className='text-[14vw] sm:text-6xl md:lg:text-[5vw] font-dm-sans font-semibold text-black dark:text-white tracking-tight mb-4 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white]'>
             Get In Touch
           </h2>
         </div>
@@ -142,10 +142,10 @@ const ContactSection: React.FC = () => {
             className={`space-y-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
           >
             <div>
-              <h3 className='text-3xl md:text-6xl font-dm-sans font-light text-black dark:text-white mb-6 tracking-tighter'>
+              <h3 className='text-3xl md:text-4xl font-dm-sans font-normal text-black dark:text-white mb-2 sm:mb-6 tracking-tighter'>
                 Let&apos;s Connect
               </h3>
-              <div className='space-y-4 text-2xl tracking-tight font-extralight text-neutral-700 dark:text-neutral-300 leading-relaxed'>
+              <div className='space-y-4 text-xl tracking-tight font-extralight text-neutral-700 dark:text-neutral-300 leading-relaxed'>
                 <p>
                   I&apos;m always open to discussing new opportunities,
                   collaborations, or just having a conversation about technology
@@ -155,14 +155,14 @@ const ContactSection: React.FC = () => {
               </div>
             </div>
 
-            <div className='space-y-6'>
-              <h4 className='text-2xl md:text-4xl font-dm-sans font-light text-black dark:text-white mb-4 tracking-tighter'>
+            <div className='space-y-2'>
+              <h4 className='text-2xl md:text-4xl font-dm-sans font-light text-black dark:text-white mb-2 tracking-tighter'>
                 Contact Information
               </h4>
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className='flex items-center gap-4 p-4 bg-black/5 dark:bg-white/5 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300'
+                  className='flex items-center gap-4 p-4 bg-black/5 dark:bg-white/11 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300'
                 >
                   <div className='text-black dark:text-white'>{info.icon}</div>
                   <div>
@@ -210,7 +210,7 @@ const ContactSection: React.FC = () => {
           <div
             className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
           >
-            <h3 className='text-2xl md:text-6xl font-dm-sans font-light text-black dark:text-white mb-6 tracking-tighter'>
+            <h3 className='text-2xl md:text-4xl font-dm-sans font-light text-black dark:text-white mb-6 tracking-tighter'>
               Send a Message
             </h3>
 

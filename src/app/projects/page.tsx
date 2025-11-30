@@ -27,11 +27,6 @@ export default function ProjectsSection() {
   const current_projects = projects;
 
   useEffect(() => {
-    set_current_project(0);
-    set_scroll_progress(0);
-  }, []);
-
-  useEffect(() => {
     const handle_scroll = () => {
       const now = performance.now();
 

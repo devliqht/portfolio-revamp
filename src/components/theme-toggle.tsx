@@ -4,20 +4,8 @@ import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
 export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(true);
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className='w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-md flex items-center justify-center'>
-        <div className='w-4 h-4 bg-gray-400 rounded-sm'></div>
-      </div>
-    );
-  }
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');

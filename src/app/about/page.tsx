@@ -51,25 +51,24 @@ const AboutSection: React.FC = () => {
 
         <div className='relative z-10 max-w-7xl mx-auto px-6 pt-20'>
           <div
-            className={`text-center mb-16 mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`sm:text-center mb-4 sm:mb-16 mt-4 sm:mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
             <h2 className='text-[14vw] sm:text-6xl md:lg:text-[6vw] font-dm-sans font-semibold text-black dark:text-white tracking-tight mb-4 hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white]'>
               About Me
             </h2>
-            <div className='w-24 h-1 bg-gradient-to-r from-black to-neutral-500 dark:from-white dark:to-neutral-400 mx-auto' />
           </div>
 
-          <div className='grid lg:grid-cols-2 gap-16 items-start mb-20'>
+          <div className='grid lg:grid-cols-2 gap-8 sm:gap-16 items-start mb-20'>
             <div
               className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
             >
               <div>
-                <h3 className='text-3xl md:text-5xl font-dm-sans font-light text-black dark:text-white mb-6 tracking-tighter'>
+                <h3 className='text-3xl md:text-5xl font-dm-sans font-normal text-black dark:text-white mb-2 sm:mb-6 tracking-tighter'>
                   Full-Stack Developer
                 </h3>
                 <div className='space-y-4 text-lg tracking-tight font-extralight text-neutral-700 dark:text-neutral-300 leading-relaxed'>
                   <p>
-                    I am a 19 year old BSCS student at the University of San
+                    I am a 20 year old BSCS student at the University of San
                     Carlos, specializing in web development, UI/UX design, and
                     video editing. As a quick learner with a lifelong passion
                     for coding, I bring creativity and technical expertise to my

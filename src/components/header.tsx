@@ -7,38 +7,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-  const [isBlurred, setIsBlurred] = useState(true);
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-  const { currentSection, isVisible } = useSection();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const toggleMenu = () => {
-    if (isOpen) {
-      setIsClosing(true);
-      setTimeout(() => {
-        setIsOpen(false);
-        setIsClosing(false);
-      }, 300);
-    } else {
-      setIsOpen(true);
-    }
-  };
-  const handleNavClick = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsOpen(false);
-      setIsClosing(false);
-    }, 800);
-  };
-
-  const BlurToggle = () => (
+// blur toggle component outside to avoid static component error
+function BlurToggle({
+  isBlurred,
+  setIsBlurred,
+}: {
+  isBlurred: boolean;
+  setIsBlurred: (value: boolean) => void;
+}) {
+  return (
     <button
       onClick={() => setIsBlurred(!isBlurred)}
       className='w-[10vw] h-[10vw] sm:md:w-[7vw] sm:md:h-[7vw] rounded-full border-[1.4px] border-black dark:border-white hover:cursor-pointer transition-all flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-neutral-800 dark:focus:ring-neutral-100 focus:ring-offset-2'
@@ -82,13 +59,41 @@ export default function Header() {
       )}
     </button>
   );
+}
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isBlurred, setIsBlurred] = useState(true);
+  const [mounted, setMounted] = useState(true);
+  const { theme } = useTheme();
+  const { currentSection, isVisible } = useSection();
+
+  const toggleMenu = () => {
+    if (isOpen) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setIsOpen(true);
+    }
+  };
+  const handleNavClick = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 800);
+  };
 
   const navigationItems = [
-    { en: 'Home', baybayin: 'home', link: '/' },
-    { en: 'About', baybayin: 'about', link: '/about' },
-    { en: 'Tech', baybayin: 'tech', link: '/tech' },
-    { en: 'Projects', baybayin: 'projects', link: '/projects' },
-    { en: 'Contact', baybayin: 'contact', link: '/contact' },
+    { en: 'Home', baybayin: '~/portfolio/home', link: '/' },
+    { en: 'About', baybayin: '~/portfolio/about', link: '/about' },
+    { en: 'Tech', baybayin: '~/portfolio/tech', link: '/tech' },
+    { en: 'Projects', baybayin: '~/portfolio/projects', link: '/projects' },
+    { en: 'Contact', baybayin: '~/portfolio/contact', link: '/contact' },
   ];
   return (
     <>
@@ -176,12 +181,12 @@ export default function Header() {
                 >
                   <a
                     href={`${item.link}`}
-                    className='block text-[9vw] sm:text-[6vw] md:text-[4.6vw] font-dm-sans bg-gradient-to-r hover:bg-none from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_#111827] dark:hover:[-webkit-text-stroke:2px_#f3f4f6] hover:-translate-y-1 transition-transform duration-300'
+                    className='block text-[9vw] sm:text-[6vw] md:text-[4.6vw] font-dm-sans bg-linear-to-r hover:bg-none from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_#111827] dark:hover:[-webkit-text-stroke:2px_#f3f4f6] hover:-translate-y-1 transition-transform duration-300'
                     onClick={handleNavClick}
                   >
                     {item.en}
                   </a>
-                  <p className='text-[1.4rem] sm:md:text-[2rem] pt-3 sm:md:lg:pt-0 font-baybayin text-gray-900 dark:text-gray-100 font-semibold tracking-tight opacity-70 -mt-4'>
+                  <p className='text-[1.4rem] sm:md:text-[1.6rem] pt-3 sm:md:lg:pt-0 font-dm-mono text-gray-900 dark:text-neutral-400 font-light italic tracking-tight opacity-70 -mt-4'>
                     {item.baybayin}
                   </p>
                 </div>
@@ -193,7 +198,10 @@ export default function Header() {
             >
               <div className='flex flex-col items-end'>
                 <div className='flex space-x-3'>
-                  <BlurToggle />
+                  <BlurToggle
+                    isBlurred={isBlurred}
+                    setIsBlurred={setIsBlurred}
+                  />
                   <ThemeToggle />
                 </div>
                 <h1 className='text-[1.6rem] sm:text-[2rem] md:text-[3vw] font-dm-sans text-gray-900 dark:text-gray-100 font-thin tracking-tight mt-4'>

@@ -16,6 +16,7 @@ import ProjectsSection from '@/app/projects/page';
 import TechSectionSW from '@/app/tech/page';
 import ExperienceSection from '@/app/experience/page';
 import Footer from '@/components/footer';
+import Beams from '@/components/Beams';
 // import { SkillsTimeline } from '@/app/about/SkillsTimeline';
 
 export default function Home() {
@@ -28,16 +29,30 @@ export default function Home() {
   return (
     <main suppressHydrationWarning={true}>
       <div
-        className={`relative min-h-screen flex text-white overflow-hidden ${isTypewriterComplete ? 'animated-dots-bg' : ''}`}
+        className={`relative min-h-screen flex text-white overflow-hidden`}
         id='landing'
       >
+        {/* beams bg */}
+        <div className='absolute inset-0 z-0'>
+          <Beams
+            beamWidth={3}
+            beamHeight={30}
+            beamNumber={12}
+            lightColor='#ffffff'
+            speed={2}
+            noiseIntensity={1.75}
+            scale={0.2}
+            rotation={-45}
+          />
+        </div>
+
         <div className='flex flex-col px-[5.8%] sm:md:px-[2.7%] top-12 sm:md:top-8 sm:md:pt-[4%] mt-8 z-10 relative h-fit transition'>
           <h2
-            className={`text-[8vw] sm:text-5xl md:text-6xl font-dm-sans font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent ${isTypewriterComplete ? 'animate-float-in-bottom opacity-100 animate-delay-300' : ''} opacity-0`}
+            className={`text-[8vw] sm:text-5xl md:text-6xl font-dm-mono font-light tracking-tighter bg-gradient-to-r from-neutral-800 via-neutral-500 to-neutral-400 dark:from-neutral-100 dark:via-neutral-300 dark:to-neutral-400 bg-clip-text text-transparent ${isTypewriterComplete ? 'animate-float-in-bottom opacity-80 animate-delay-300' : ''} opacity-0`}
           >
             Matt Cabarrubias
           </h2>
-          <h1 className='text-[14vw] font-dm-sans text-black dark:text-white font-semibold tracking-tight hover:cursor-pointer hover:text-transparent hover:[-webkit-text-stroke:2px_black] dark:hover:text-black dark:hover:[-webkit-text-stroke:2px_white] -translate-y-[4vw]'>
+          <h1 className='text-[19vw] sm:md:lg:xl:text-[12vw] -translate-y-[8vw] sm:md:lg:xl:-translate-y-[4vw]'>
             <Typewriter
               text='devliqht'
               delay={150}
@@ -47,9 +62,9 @@ export default function Home() {
         </div>
         <div className='absolute bottom-0 px-[5%] pb-[4.7%] sm:md:left-0 right-0'>
           <div
-            className={`text-2xl sm:text-3xl md:text-[4vw] font-dm-sans text-gray-900 dark:text-gray-100 font-extralight tracking-widest mb-4 transition-opacity ${isTypewriterComplete ? 'animate-float-in-top' : ''} sm:md:text-left text-right opacity-0`}
+            className={`text-2xl sm:text-3xl md:text-[3.4vw] font-dm-sans text-gray-900 dark:text-gray-100 font-extralight tracking-tighter mb-4 transition-opacity ${isTypewriterComplete ? 'animate-float-in-top' : ''} sm:md:text-left text-right opacity-0`}
           >
-            full-stack
+            Full Stack, AI &amp; Devops
           </div>
           <h3
             className={`text-2xl sm:md:text-4xl font-baybayin text-black sm:md:text-left text-right dark:text-white font-semibold tracking-tight ${isTypewriterComplete ? 'animate-float-in-top' : ''} opacity-0`}

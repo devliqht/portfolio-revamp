@@ -25,6 +25,7 @@ const TechSectionSW: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [visibleIcons, setVisibleIcons] = useState<string[]>([]);
+  const [isMounted] = useState(true);
   const totalIcons = techIcons.length;
 
   // --- User Defined Animation Parameters ---
@@ -117,10 +118,24 @@ const TechSectionSW: React.FC = () => {
     visibilityFocusDepth,
   ]);
 
-  const throttledUpdate = useRef(rafThrottle(updateScrollState));
+  const throttledUpdate = useRef<ReturnType<typeof rafThrottle> | null>(null);
+
+  // generate star properties once on mount to avoid impure render
+  const [starProperties] = useState(() =>
+    Array.from({ length: numStars }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      width: Math.random() * 1.5 + 0.9,
+      height: Math.random() * 1.5 + 0.9,
+      opacity: Math.random() * 0.4 + 0.15,
+      animationDelay: Math.random() * 5,
+      animationDuration: Math.random() * 5 + 3,
+    }))
+  );
 
   useEffect(() => {
-    const handler = () => throttledUpdate.current();
+    throttledUpdate.current = rafThrottle(updateScrollState);
+    const handler = () => throttledUpdate.current?.();
     const currentThrottled = throttledUpdate.current;
     const initTimeout = setTimeout(handler, 0);
     window.addEventListener('scroll', handler, { passive: true });
@@ -148,21 +163,22 @@ const TechSectionSW: React.FC = () => {
         style={{ perspective: '800px' }}
       >
         <div className='absolute inset-0 bg-white dark:bg-black'>
-          {[...Array(numStars)].map((_, i) => (
-            <div
-              key={`star-${i}`}
-              className='absolute bg-black dark:bg-white rounded-full animate-pulse'
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                width: `${Math.random() * 1.5 + 0.9}px`,
-                height: `${Math.random() * 1.5 + 0.9}px`,
-                opacity: Math.random() * 0.4 + 0.15,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 5 + 3}s`,
-              }}
-            />
-          ))}
+          {isMounted &&
+            starProperties.map((star, i) => (
+              <div
+                key={`star-${i}`}
+                className='absolute bg-black dark:bg-white rounded-full animate-pulse'
+                style={{
+                  left: `${star.left}%`,
+                  top: `${star.top}%`,
+                  width: `${star.width}px`,
+                  height: `${star.height}px`,
+                  opacity: star.opacity,
+                  animationDelay: `${star.animationDelay}s`,
+                  animationDuration: `${star.animationDuration}s`,
+                }}
+              />
+            ))}
         </div>
         <div className='absolute inset-0 overflow-hidden pointer-events-none'>
           <div className='absolute inset-0 flex items-center justify-center'>

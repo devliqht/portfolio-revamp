@@ -3,7 +3,7 @@ import { ThemeProvider } from 'next-themes';
 
 import '@/styles/globals.css';
 import Header from '@/components/header';
-import { dm_sans, baybayin } from '@/lib/fonts';
+import { dm_sans, dm_mono, baybayin } from '@/lib/fonts';
 import { SectionProvider } from '@/hooks/useSection';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`${dm_sans.variable} ${baybayin.variable}`}
+      className={`${dm_sans.variable} ${dm_mono.variable} ${baybayin.variable}`}
       suppressHydrationWarning={true}
     >
       <body>
