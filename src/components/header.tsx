@@ -186,7 +186,7 @@ export default function Header() {
                   >
                     {item.en}
                   </a>
-                  <p className='text-[1.4rem] sm:md:text-[1.6rem] pt-3 sm:md:lg:pt-0 font-dm-mono text-gray-900 dark:text-neutral-400 font-light italic tracking-tight opacity-70 -mt-4'>
+                  <p className='text-base sm:md:text-[1.6rem] pt-3 sm:md:lg:pt-0 font-dm-mono text-gray-900 dark:text-neutral-400 font-light italic tracking-tight opacity-70 -mt-5 sm:-mt-4'>
                     {item.baybayin}
                   </p>
                 </div>
